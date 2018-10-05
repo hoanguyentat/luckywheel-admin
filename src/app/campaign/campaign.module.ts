@@ -6,13 +6,15 @@ import { CampaignRoutingModule } from './campaign-routing.module';
 import {CardModule} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import { CampaignService } from '../services/campaign.service';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
 
 @NgModule({
   imports: [
     CommonModule,
     CampaignRoutingModule,
     CardModule,
-    TableModule
+    TableModule,
+    BreadcrumbModule
   ],
   declarations: [
     CampaignComponent,

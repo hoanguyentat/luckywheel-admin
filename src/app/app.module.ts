@@ -10,10 +10,17 @@ import { SubscriberComponent } from './subscriber/subscriber.component';
 import { IntegrationComponent } from './integration/integration.component';
 import {DataViewModule} from 'primeng/dataview';
 import { SubscriberService } from './services/subscriber.service';
+import { ToastrModule } from 'ngx-toastr';
+import { CoreModule } from './core/core.module';
+import { CampaignService } from './services/campaign.service';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { DataTableModule, DataGridModule, PanelModule, DialogModule, TabViewModule, CodeHighlighterModule } from 'primeng/primeng';
+import { PaginatorModule } from 'primeng/primeng';
 
 const routes: Routes = [
   {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule'},
-  {path: 'subscriber', component: SubscriberComponent},
+  {path: 'subscriber', loadChildren: './subscriber/subscriber.module#SubscriberModule'},
   {path: 'integration', component: IntegrationComponent},
   {path: '**', redirectTo: 'campaign',  pathMatch: 'full'}
 ];
@@ -21,7 +28,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SubscriberComponent,
     IntegrationComponent
   ], 
   imports: [
@@ -31,10 +37,18 @@ const routes: Routes = [
     MenubarModule,
     BreadcrumbModule,
     HttpClientModule,
-    DataViewModule
+    DataViewModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      closeButton: true
+    }),
+    CoreModule,
+    CardModule,
+    TableModule
   ],
   providers: [
-    SubscriberService
+    SubscriberService,
+    CampaignService
   ],
   bootstrap: [AppComponent]
 })

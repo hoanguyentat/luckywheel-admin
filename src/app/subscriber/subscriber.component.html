@@ -1,12 +1,78 @@
-<p-dataView [value]="cars">
-    <ng-template let-car pTemplate="listItem">
-        <div>
-            {{car.id}}
+
+<p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
+<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px;" *ngIf="subscribers != null">
+    <p-dataView #dv [value]="subscribers" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand" [sortField]="sortField" [sortOrder]="sortOrder">
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-4">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+                    </div>
+                    <div class="ui-g-6 ui-md-4 filter-container">
+                        <div style="position:relative">
+                            <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-4" style="text-align:right">
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </div>
+            </div>
+        </p-header>
+        <ng-template let-subscriber pTemplate="listItem">
+            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                <div class="ui-g-12 ui-md-3" style="text-align:center">
+                    <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{subscriber.brand}}.png">
+                </div>
+                <div class="ui-g-12 ui-md-8 subscriber-details">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">Vin: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.vin}}</b></div>
+
+                        <div class="ui-g-2 ui-sm-6">Year: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.year}}</b></div>
+
+                        <div class="ui-g-2 ui-sm-6">Brand: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.brand}}</b></div>
+
+                        <div class="ui-g-2 ui-sm-6">Color: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.color}}</b></div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-1 search-icon">
+                    <button pButton type="button" icon="pi pi-search" (click)="selectSubscriber($event, subscriber)"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-subscriber pTemplate="gridItem">
+            <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                <p-panel [header]="subscriber.vin" [style]="{'text-align':'center'}">
+                    <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{subscriber.brand}}.png" width="60">
+                    <div class="subscriber-detail">{{subscriber.year}} - {{subscriber.color}}</div>
+                    <hr class="ui-widget-content" style="border-top:0">
+                    <button pButton type="button" icon="pi pi-search" (click)="selectSubscriber($event, subscriber)" style="margin-top:0"></button>
+                </p-panel>
+            </div>
+        </ng-template>
+    </p-dataView>
+
+    <p-dialog header="subscriber Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+        <div class="ui-g" *ngIf="selectedSubscriber">
+            <div class="ui-g-12" style="text-align:center">
+                <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{selectedSubscriber.brand}}.png">
+            </div>
+            <div class="ui-g-4">Vin: </div>
+            <div class="ui-g-8">{{selectedSubscriber.vin}}</div>
+
+            <div class="ui-g-4">Brand: </div>
+            <div class="ui-g-8">{{selectedSubscriber.brand}}</div>
+
+            <div class="ui-g-4">Year: </div>
+            <div class="ui-g-8">{{selectedSubscriber.year}}</div>
+
+            <div class="ui-g-4">Color: </div>
+            <div class="ui-g-8">{{selectedSubscriber.color}}</div>
         </div>
-    </ng-template>
-    <ng-template let-car pTemplate="gridItem">
-        <div class="ui-g-12 ui-md-3">
-            {{car.year}}
-        </div>
-    </ng-template>
-</p-dataView>
+    </p-dialog>
+</div>
+    

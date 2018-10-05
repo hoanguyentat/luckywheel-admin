@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignModel } from '../core/models/Campaign';
 import { CampaignService } from '../services/campaign.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-campaign',
@@ -11,13 +12,13 @@ export class CampaignComponent implements OnInit {
 
   cars: CampaignModel[];
   cols: any[];
+  itemsBreadrumb: MenuItem[];
 
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit() {
-    this.campaignService.getCampaigns().then(cars => {
-      console.log(cars);
-      this.cars = cars;
+    this.campaignService.getCampaigns().subscribe(result => {
+      this.cars = result['data'];
     });
 
     this.cols = [
@@ -26,5 +27,10 @@ export class CampaignComponent implements OnInit {
         { field: 'brand', header: 'Brand' },
         { field: 'color', header: 'Color' }
     ];
+
+    this.itemsBreadrumb = [
+      {label:'Home',  url: '/'},
+      {label:'Campaign', url: '/campaign'}
+    ]
   }
 }
