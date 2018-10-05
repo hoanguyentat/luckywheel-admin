@@ -1,3 +1,34 @@
-<p>
-  detail-campaign works!
-</p>
+<p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
+<div class="ui-g" style="padding: 30px;">
+    <div class="ui-md-12 ui-lg-nopading ui-lg-offset-1 ui-lg-3">   
+        <p-card title="Black Friday" subtitle="Description" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+            <p-header>
+                <img src="https://www.primefaces.org/primeng/assets/showcase/images/usercard.png">
+            </p-header>
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
+            <p-footer>
+                <button pButton type="button" label="Update" icon="pi pi-check" style="margin-right: .25em"></button>
+                <button pButton type="button" label="Stop" icon="pi pi-ban" class="ui-button-danger"></button>
+            </p-footer>
+        </p-card>
+    </div>
+    <div class="ui-lg-7 ui-md-12">
+        <p-table [columns]="cols" [value]="campaigns">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-campaign let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                            {{campaign[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

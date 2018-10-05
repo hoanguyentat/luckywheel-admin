@@ -7,6 +7,14 @@ import {CardModule} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import { CampaignService } from '../services/campaign.service';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {
+  ButtonModule, MessageModule, PanelModule, 
+  DropdownModule, InputTextModule, InputTextareaModule, 
+  TabViewModule, CodeHighlighterModule, ToolbarModule, 
+  SplitButtonModule
+} from 'primeng/primeng';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'node_modules/primeng/toast';
 
 @NgModule({
   imports: [
@@ -14,7 +22,21 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
     CampaignRoutingModule,
     CardModule,
     TableModule,
-    BreadcrumbModule
+    ButtonModule,
+    BreadcrumbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
+    MessageModule,
+    PanelModule,
+    DropdownModule,
+    InputTextModule,
+    InputTextareaModule,
+    ButtonModule,
+    TabViewModule,
+    ToolbarModule,
+    SplitButtonModule,
+    CodeHighlighterModule
   ],
   declarations: [
     CampaignComponent,

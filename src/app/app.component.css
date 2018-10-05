@@ -1,5 +1,19 @@
-.ui-ui-menubar, .ui-widget, .ui-widget-content, .ui-corner-all {
-    padding: 30px !important;
+:host >>> body {
+    background-color: #f4f6f8 !important;
+}
+:host >>> .ui-menubar {
+    padding: 20px 10px !important;
     background-color: #ffffff;
     border: 1px solid #c8c8c8 !important;
+}
+
+:host >>> .ui-breadcrumb {
+    background-color: #f4f6f8;
+    border: 0px solid #c8c8c8;
+    padding: 0.571em 1em;
+}
+
+ul.social li:hover a i {
+	font-size:30px;
+	margin-top:-10px;
 }

@@ -6,7 +6,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MenubarModule} from 'primeng/menubar';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SubscriberComponent } from './subscriber/subscriber.component';
 import { IntegrationComponent } from './integration/integration.component';
 import {DataViewModule} from 'primeng/dataview';
 import { SubscriberService } from './services/subscriber.service';
@@ -15,8 +14,8 @@ import { CoreModule } from './core/core.module';
 import { CampaignService } from './services/campaign.service';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
-import { DataTableModule, DataGridModule, PanelModule, DialogModule, TabViewModule, CodeHighlighterModule } from 'primeng/primeng';
-import { PaginatorModule } from 'primeng/primeng';
+import { DataTableModule, DataGridModule, PanelModule, DialogModule, TabViewModule, CodeHighlighterModule, ButtonModule } from 'primeng/primeng';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule'},
@@ -33,7 +32,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes, { enableTracing: false }),
+    FormsModule,
+    RouterModule.forRoot(routes, { enableTracing: true }),
     MenubarModule,
     BreadcrumbModule,
     HttpClientModule,
@@ -44,7 +44,8 @@ const routes: Routes = [
     }),
     CoreModule,
     CardModule,
-    TableModule
+    TableModule,
+    CodeHighlighterModule
   ],
   providers: [
     SubscriberService,

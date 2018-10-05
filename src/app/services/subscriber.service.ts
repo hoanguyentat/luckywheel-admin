@@ -15,7 +15,7 @@ export class SubscriberService {
     getSubscribers(): Observable<SubscriberModel[]> {
         return this.http.get<SubscriberModel[]>(this.subUrl)
                     .pipe(
-                        tap(subscribers => console.log("fetch data subscriber")),
+                        tap(subscribers => {console.log("fetch data subscriber")}),
                         catchError(this.errorsService.handleError('getSubscriber', []))
                         );
     }

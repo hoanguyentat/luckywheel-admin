@@ -1,32 +1,74 @@
 
 <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="ui-g" style="padding: 30px;">
     <div class="ui-md-12 ui-lg-nopading ui-lg-offset-1 ui-lg-3">   
-        <p-card title="Advanced Card" subtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
-            <p-header>
-                <img src="Card" src="https://www.primefaces.org/primeng/assets/showcase/images/usercard.png">
-            </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
-            <p-footer>
-                <button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
-                <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
-            </p-footer>
-        </p-card>
+        <form [formGroup]="campaignForm" (ngSubmit)="onSubmit(campaignForm.value)">
+            <p-panel header="Quick Campaign">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4">
+                            Name *:
+                        </div>
+                        <div class="ui-grid-col-8">
+                            <input pInputText type="text" formControlName="name" placeholder="Required"/>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error" text="Name is required" *ngIf="!campaignForm.controls['name'].valid&&campaignForm.controls['name'].dirty"></p-message>
+                        </div>
+                    </div>
+        
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4">
+                            Description:
+                        </div>
+                        <div class="ui-grid-col-8">
+                            <textarea pInputTextarea type="text" formControlName="description" rows=5></textarea>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"></div>
+                        <div class="ui-grid-col-8">
+                            <button pButton type="submit" label="Create campaign" [disabled]="!campaignForm.valid"></button>
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+                        Form Submitted
+                        <br>
+                        {{diagnostic}}
+                    </div>
+                </div>
+            </p-panel>
+        </form>
     </div>
     <div class="ui-lg-7 ui-md-12">
-        <p-table [columns]="cols" [value]="cars">
+        <p-table [columns]="cols" [value]="campaigns">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
                         {{col.header}}
                     </th>
+                    <th>
+                        Action
+                    </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-car let-columns="columns">
+            <ng-template pTemplate="body" let-campaign let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns">
-                            {{car[col.field]}}
+                            {{campaign[col.field]}}
+                    </td>
+                    <td>
+                        <!-- <p-toolbar> -->
+                            <div class="ui-toolbar-group-right">
+                                <a pButton href="/campaign/2" icon="pi pi-search"></a>
+                                <button pButton type="button" icon="pi pi-pencil" class="ui-button-success"></button>
+                                <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button>
+                            </div>
+                        <!-- </p-toolbar> -->
                     </td>
                 </tr>
             </ng-template>

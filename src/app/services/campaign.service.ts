@@ -13,7 +13,7 @@ export class CampaignService {
     getCampaigns(): Observable<CampaignModel[]> {
         return this.http.get<CampaignModel[]>('/assets/data/cars-small.json')
                     .pipe(
-                        tap(campaigns => this.messageService.info('fetched campaigns')),
+                        tap(campaigns => {}),
                         catchError(this.errorsService.handleError('getCampaigns', []))
                     );
     }
