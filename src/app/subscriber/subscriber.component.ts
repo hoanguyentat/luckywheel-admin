@@ -29,7 +29,7 @@ export class SubscriberComponent implements OnInit {
 
   ngOnInit() {
     this.subscriberService.getSubscribers().subscribe(result => {
-      console.log(result)
+      // console.log(result)
       this.subscribers = result['data'];
     });
 

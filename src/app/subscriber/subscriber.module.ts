@@ -10,6 +10,7 @@ import { SubscriberRoutingModule } from './subscriber-routing.module';
 import { DataTableModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
 import { DataViewModule } from 'primeng/dataview';
+import { DetailSubscriberComponent } from './detail-subscriber/detail-subscriber.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { DataViewModule } from 'primeng/dataview';
     ButtonModule
   ],
   declarations: [
-    SubscriberComponent
+    SubscriberComponent,
+    DetailSubscriberComponent
   ],
   providers: [
     SubscriberService
