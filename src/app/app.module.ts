@@ -33,7 +33,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule.forRoot(routes, { enableTracing: true }),
+    RouterModule.forRoot(routes, { enableTracing: false, useHash: true}),
     MenubarModule,
     BreadcrumbModule,
     HttpClientModule,
