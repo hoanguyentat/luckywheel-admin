@@ -29,8 +29,8 @@ export class DetailCampaignComponent implements OnInit {
     ];
 
     this.itemsBreadrumb = [
-      {label:'Home',  url: '/'},
-      {label:'Campaign', url: '/campaign'},
+      {label:'Home',  url: '/#/'},
+      {label:'Campaign', url: '/#/campaign'},
       {label:'Detail Campaign'}
     ]
   }

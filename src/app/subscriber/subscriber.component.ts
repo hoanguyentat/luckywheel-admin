@@ -41,7 +41,7 @@ export class SubscriberComponent implements OnInit {
 
     this.itemsBreadrumb = [
       {label:'Home',  url: '/'},
-      {label:'Subscriber', url: '/subscriber'}
+      {label:'Subscriber', url: '/#/subscriber'}
     ]
 
     this.cols = [

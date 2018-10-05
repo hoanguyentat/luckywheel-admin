@@ -38,7 +38,7 @@ export class CampaignComponent implements OnInit {
 
     this.itemsBreadrumb = [
       {label:'Home',  url: '/'},
-      {label:'Campaign', url: '/campaign'}
+      {label:'Campaign', url: '/#/campaign'}
     ];
 
     this.campaignForm = this.fb.group({
