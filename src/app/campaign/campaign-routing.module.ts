@@ -14,7 +14,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-  declarations: [],
-  exports: [RouterModule]
+  declarations: []
 })
 export class CampaignRoutingModule { }

@@ -20,16 +20,17 @@ export class AppComponent {
         {
             label: 'Campaign',
             icon: 'pi pi-fw pi-bookmark',
-            url: '/campaign'
+            url: '/#/campaign'
         },
         {
             label: 'Subscriber',
             icon: 'pi pi-fw pi-user-plus',
-            url: '/subscriber'
+            url: '/#/subscriber'
         },
         {
             label: 'Integration',
             icon: 'pi pi-fw pi-cog',
+            url: '/#/integration',
             items: [
                 {
                     label: 'Edit',
