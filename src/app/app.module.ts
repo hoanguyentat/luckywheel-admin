@@ -19,13 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-
-const routes: Routes = [
-  {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule'},
-  {path: 'subscriber', loadChildren: './subscriber/subscriber.module#SubscriberModule'},
-  {path: 'integration', component: IntegrationComponent},
-  {path: '**', redirectTo: 'campaign',  pathMatch: 'full'}
-];
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -51,7 +45,7 @@ const routes: Routes = [
     CardModule,
     TableModule,
     CodeHighlighterModule,
-    RouterModule.forRoot(routes, { useHash: true })
+    AppRoutingModule
   ],
   providers: [
     SubscriberService,

@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { CampaignComponent } from './campaign.component';
 import { DetailCampaignComponent } from './detail-campaign/detail-campaign.component';
 import { CampaignRoutingModule } from './campaign-routing.module';
-import {CardModule} from 'primeng/card';
-import {TableModule} from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 import { CampaignService } from '../services/campaign.service';
-import {BreadcrumbModule} from 'primeng/breadcrumb';
+import { BreadcrumbModule} from 'primeng/breadcrumb';
 import {
   ButtonModule, MessageModule, PanelModule, 
   DropdownModule, InputTextModule, InputTextareaModule, 
