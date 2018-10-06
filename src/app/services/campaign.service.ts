@@ -12,9 +12,9 @@ export class CampaignService {
     constructor(private http: HttpClient, private messageService: MessageService, private errorsService: ErrorsService) {}
     getCampaigns(): Observable<CampaignModel[]> {
         return this.http.get<CampaignModel[]>('/assets/data/cars-small.json')
-                    .pipe(
-                        tap(campaigns => {}),
-                        catchError(this.errorsService.handleError('getCampaigns', []))
-                    );
+            .pipe(
+                tap(_campaigns => {}),
+                catchError(this.errorsService.handleError('getCampaigns', []))
+            );
     }
 }

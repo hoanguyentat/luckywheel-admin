@@ -16,6 +16,9 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { DataTableModule, DataGridModule, PanelModule, DialogModule, TabViewModule, CodeHighlighterModule, ButtonModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule'},
@@ -27,7 +30,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    IntegrationComponent
+    IntegrationComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent
   ], 
   imports: [
     BrowserModule,
