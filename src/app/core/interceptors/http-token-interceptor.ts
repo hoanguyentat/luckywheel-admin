@@ -5,16 +5,17 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // console.log('http token interceptor');
-    // console.log(req);
-    const headersConfig = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      // 'Access-Control-Allow-Origin': '**',
-    //   'Authorization': 'Token ' + environment.token
-    };
-    const request = req.clone({ setHeaders: headersConfig });
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.token) {
+        const headersConfig = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '**',
+          'Authorization': `Token ${currentUser.token}`
+        };
+        request = request.clone({ setHeaders: headersConfig });
+      }
     return next.handle(request);
   }
 }

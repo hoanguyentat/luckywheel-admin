@@ -4,15 +4,14 @@ import { IntegrationComponent } from './integration/integration.component';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { LogoutComponent } from './logout/logout.component';
+import AuthGuard from './_guards/auth.guard';
 
 
 const routes: Routes = [
-  {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule'},
-  {path: 'subscriber', loadChildren: './subscriber/subscriber.module#SubscriberModule'},
+  {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule', canActivate: [AuthGuard]},
+  {path: 'subscriber', loadChildren: './subscriber/subscriber.module#SubscriberModule', canActivate: [AuthGuard]},
   {path: 'integration', component: IntegrationComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'logout', component: LogoutComponent},
   {path: 'register', component: RegisterComponent},
   {path: '**', redirectTo: 'campaign',  pathMatch: 'full'}
 ];

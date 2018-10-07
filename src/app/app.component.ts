@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, ConfirmationService} from 'primeng/api';
 import { NbSidebarModule, NbLayoutModule, NbSidebarService } from '@nebular/theme';
+import { AuthenticationService } from './services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,18 @@ import { NbSidebarModule, NbLayoutModule, NbSidebarService } from '@nebular/them
 export class AppComponent {
   title = 'Lucky Wheel Admin';
   itemsMenu: MenuItem[];
+  userStatus = false;
+
+  constructor(
+    private authService: AuthenticationService, 
+    private router: Router, 
+    private confirmationService: ConfirmationService) {}
+
   ngOnInit() {
+    
+    if(localStorage.getItem("currentUser")) {
+        this.userStatus = true;
+    }
     this.itemsMenu = [
         {
             label: 'Home',
@@ -48,10 +61,18 @@ export class AppComponent {
                     ]
                 }
             ]
-        },
-        {
-            label: 'Quit', icon: 'pi pi-fw pi-times'
         }
     ];
   }
+
+
+  logout() {
+    this.confirmationService.confirm({
+        message: 'Are you sure?',
+        accept: () => {
+            this.authService.logout()
+            location.reload();
+        }
+    });
+}
 }
