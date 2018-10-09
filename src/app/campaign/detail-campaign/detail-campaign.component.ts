@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
 import { CampaignModel } from '../../core/models/Campaign';
 import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-detail-campaign',
@@ -14,11 +16,18 @@ export class DetailCampaignComponent implements OnInit {
   cols: any[];
   itemsBreadrumb: MenuItem[];
 
-  constructor(private campaignService: CampaignService) { }
+  cars: CampaignModel[];
+  selectedCars: CampaignModel[];
+
+  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+
+    let id = this.activateRoute.snapshot.paramMap.get('id');
+    
     this.campaignService.getCampaigns().subscribe(result => {
       this.campaigns = result['data'];
+      this.cars = result['data'];
     });
 
     this.cols = [

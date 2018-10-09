@@ -14,7 +14,6 @@ export class CampaignComponent implements OnInit {
 
   campaignForm: FormGroup;
   submitted: boolean;
-  genders: SelectItem[];
   description: string;
 
 

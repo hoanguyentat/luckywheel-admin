@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SubscriberService } from '../services/subscriber.service';
 import { SubscriberModel } from '../core/models/Subscriber';
 import { MessageService } from '../services/message.service';
@@ -25,6 +25,8 @@ export class SubscriberComponent implements OnInit {
   subscribers: SubscriberModel[];
   itemsBreadrumb: MenuItem[];
 
+  // @Output() itemsBreadrumbTest = new EventEmitter<MenuItem[]>();
+
   constructor(private subscriberService: SubscriberService, private messageService: MessageService) { }
 
   ngOnInit() {
@@ -39,10 +41,13 @@ export class SubscriberComponent implements OnInit {
       {label: 'Brand', value: 'brand'}
   ];
 
+
     this.itemsBreadrumb = [
       {label:'Home',  url: '/'},
       {label:'Subscriber', url: '/#/subscriber'}
     ]
+
+    // this.itemsBreadrumbTest.emit(this.itemsBreadrumb)
 
     this.cols = [
       { field: 'vin', header: 'Vin' },

@@ -11,10 +11,13 @@ import {
   ButtonModule, MessageModule, PanelModule, 
   DropdownModule, InputTextModule, InputTextareaModule, 
   TabViewModule, CodeHighlighterModule, ToolbarModule, 
-  SplitButtonModule
+  SplitButtonModule,
+  MenubarModule,
+  MessageService
 } from 'primeng/primeng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'node_modules/primeng/toast';
+import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
 
 @NgModule({
   imports: [
@@ -36,14 +39,17 @@ import { ToastModule } from 'node_modules/primeng/toast';
     TabViewModule,
     ToolbarModule,
     SplitButtonModule,
+    MenubarModule,
     CodeHighlighterModule
   ],
   declarations: [
     CampaignComponent,
-    DetailCampaignComponent
+    DetailCampaignComponent,
+    EditCampaignComponent
   ],
   providers: [
-    CampaignService
+    CampaignService,
+    MessageService
   ]
 })
 export class CampaignModule { }

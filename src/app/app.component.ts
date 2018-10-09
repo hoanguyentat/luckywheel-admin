@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import {MenuItem, ConfirmationService} from 'primeng/api';
-import { NbSidebarModule, NbLayoutModule, NbSidebarService } from '@nebular/theme';
 import { AuthenticationService } from './services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,13 +12,14 @@ export class AppComponent {
   title = 'Lucky Wheel Admin';
   itemsMenu: MenuItem[];
   userStatus = false;
+  itemsBreadrumb: MenuItem[];
 
   constructor(
     private authService: AuthenticationService, 
     private router: Router, 
     private confirmationService: ConfirmationService) {}
 
-  ngOnInit() {
+  ngOnInit($event) {
     
     if(localStorage.getItem("currentUser")) {
         this.userStatus = true;
@@ -63,6 +63,8 @@ export class AppComponent {
             ]
         }
     ];
+
+    this.itemsBreadrumb = $event;
   }
 
 

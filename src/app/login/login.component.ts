@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
   }
 
-  get f() { return this.loginForm.controls; }
+  get fControll() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -62,11 +62,11 @@ export class LoginComponent implements OnInit {
     //       this.errService.log(error);
     //       this.loading = false;
     //   });
-    let user = this.authService.login(this.f.shopid.value, this.f.token.value)
+    let user = this.authService.login(this.fControll.shopid.value, this.fControll.token.value)
     if(user) {
       this.router.navigate([this.redirectUrl]);
     } else {
-      this.errService.log("Loi dang nhap");
+      this.errService.log("Can't login...");
       this.loading = false;
     }
   }

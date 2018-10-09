@@ -19,4 +19,12 @@ export class SubscriberService {
                         catchError(this.errorsService.handleError('getSubscriber', []))
                         );
     }
+
+    getSubscriber(id: number): Observable<SubscriberModel> {
+        return this.http.get<SubscriberModel>(this.subUrl)
+        .pipe(
+            tap(subscriber => {}),
+            catchError(this.errorsService.handleError<SubscriberModel>("Error get subscriber ${id}"))
+        );
+    }
 }
