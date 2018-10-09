@@ -16,7 +16,8 @@ export class EditCampaignComponent implements OnInit {
   campaignForm: FormGroup;
   submitted: boolean;
   description: string;
-  cars: CampaignModel[];
+  slices: CampaignModel[];
+  itemsBreadrumb: MenuItem[];
 
   constructor(private campaignService: CampaignService, private fb: FormBuilder, private messageService: MessageService) { }
 
@@ -27,8 +28,19 @@ export class EditCampaignComponent implements OnInit {
     });
 
     this.campaignService.getCampaigns().subscribe(result => {
-      this.cars = result['data'];
+      this.slices = result['data'];
     });
+
+    this.itemsBreadrumb = [
+      {label:'Home',  url: '/'},
+      {label:'Campaign', url: '/#/campaign'},
+      {label:'Edit Campaign'},
+    ];
+  }
+
+  updateCampaign(){
+    console.log(this.campaignForm.value)
+    console.log(this.slices);
   }
 
   onSubmit(value: string) {
