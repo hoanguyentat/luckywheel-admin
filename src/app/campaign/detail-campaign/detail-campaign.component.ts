@@ -18,13 +18,13 @@ export class DetailCampaignComponent implements OnInit {
 
   cars: CampaignModel[];
   selectedCars: CampaignModel[];
-
+  id: string;
   constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
-    let id = this.activateRoute.snapshot.paramMap.get('id');
-    
+    this.id = this.activateRoute.snapshot.paramMap.get('id');
+
     this.campaignService.getCampaigns().subscribe(result => {
       this.campaigns = result['data'];
       this.cars = result['data'];
