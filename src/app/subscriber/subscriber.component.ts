@@ -25,20 +25,25 @@ export class SubscriberComponent implements OnInit {
   subscribers: SubscriberModel[];
   itemsBreadrumb: MenuItem[];
 
+  currentPage = 1;
+  pageSize = 20;
+  totalCount: number;
+  totalPage: number;
+
   // @Output() itemsBreadrumbTest = new EventEmitter<MenuItem[]>();
 
   constructor(private subscriberService: SubscriberService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.subscriberService.getSubscribers().subscribe(result => {
-      // console.log(result)
-      this.subscribers = result['data'];
+      console.log(result)
+      this.subscribers = result['content'];
     });
 
     this.sortOptions = [
-      {label: 'Newest First', value: '!year'},
-      {label: 'Oldest First', value: 'year'},
-      {label: 'Brand', value: 'brand'}
+      {label: 'Newest First', value: '!createdAt'},
+      {label: 'Oldest First', value: 'createdAt'},
+      {label: 'Email', value: 'email'}
   ];
 
 
@@ -50,10 +55,9 @@ export class SubscriberComponent implements OnInit {
     // this.itemsBreadrumbTest.emit(this.itemsBreadrumb)
 
     this.cols = [
-      { field: 'vin', header: 'Vin' },
-      { field: 'year', header: 'Year' },
-      { field: 'brand', header: 'Brand' },
-      { field: 'color', header: 'Color' }
+      { field: 'fullName', header: 'Full Name' },
+      { field: 'email', header: 'Email' },
+      { field: 'createdAt', header: 'Created At' }
   ];
   }
 

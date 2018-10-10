@@ -5,13 +5,6 @@
             <h2>Login</h2>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="shopid">Shop ID</label>
-                    <input type="text" formControlName="shopid" class="form-control" [ngClass]="{ 'is-invalid': submitted && fControll.shopid.errors }" />
-                    <div *ngIf="submitted && fControll.shopid.errors" class="invalid-feedback">
-                        <div *ngIf="fControll.shopid.errors.required">Shop ID is required</div>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="token">Token</label>
                     <input type="token" formControlName="token" class="form-control" [ngClass]="{ 'is-invalid': submitted && fControll.token.errors }" />
                     <div *ngIf="submitted && fControll.token.errors" class="invalid-feedback">

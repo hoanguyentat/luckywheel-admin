@@ -21,22 +21,16 @@
         </p-header>
         <ng-template let-subscriber pTemplate="listItem">
             <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-                <div class="ui-g-12 ui-md-3" style="text-align:center">
-                    <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{subscriber.brand}}.png">
+                <div class="ui-g-12 ui-md-2" style="text-align:center">
+                    <img class="img img-responsive" src="http://pngimages.net/sites/default/files/user-png-image-15189.png">
                 </div>
                 <div class="ui-g-12 ui-md-8 subscriber-details">
                     <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.vin}}</b></div>
+                        <div class="ui-g-2 ui-sm-6">Name: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.fullName}}</b></div>
 
-                        <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.year}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.brand}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.color}}</b></div>
+                        <div class="ui-g-2 ui-sm-6">Email: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.email}}</b></div>
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-1 search-icon">
@@ -47,7 +41,7 @@
         <ng-template let-subscriber pTemplate="gridItem">
             <div style="padding:.5em" class="ui-g-12 ui-md-3">
                 <p-panel [header]="subscriber.vin" [style]="{'text-align':'center'}">
-                    <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{subscriber.brand}}.png" width="60">
+                    <img src="http://pngimages.net/sites/default/files/user-png-image-15189.png" width="60">
                     <div class="subscriber-detail">{{subscriber.year}} - {{subscriber.color}}</div>
                     <hr class="ui-widget-content" style="border-top:0">
                     <button pButton type="button" icon="pi pi-search" (click)="selectSubscriber($event, subscriber)" style="margin-top:0"></button>
@@ -56,22 +50,19 @@
         </ng-template>
     </p-dataView>
 
-    <p-dialog header="subscriber Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+    <p-dialog header="subscriber Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="300" (onAfterHide)="onDialogHide()">
         <div class="ui-g" *ngIf="selectedSubscriber">
             <div class="ui-g-12" style="text-align:center">
-                <img src="https://www.primefaces.org/primeng/assets/showcase/images/demo/car/{{selectedSubscriber.brand}}.png">
+                <img src="http://pngimages.net/sites/default/files/user-png-image-15189.png">
             </div>
-            <div class="ui-g-4">Vin: </div>
-            <div class="ui-g-8">{{selectedSubscriber.vin}}</div>
+            <div class="ui-g-4">Name: </div>
+            <div class="ui-g-8">{{selectedSubscriber.fullName}}</div>
 
-            <div class="ui-g-4">Brand: </div>
-            <div class="ui-g-8">{{selectedSubscriber.brand}}</div>
+            <div class="ui-g-4">Email: </div>
+            <div class="ui-g-8">{{selectedSubscriber.email}}</div>
 
-            <div class="ui-g-4">Year: </div>
-            <div class="ui-g-8">{{selectedSubscriber.year}}</div>
-
-            <div class="ui-g-4">Color: </div>
-            <div class="ui-g-8">{{selectedSubscriber.color}}</div>
+            <div class="ui-g-4">Created At: </div>
+            <div class="ui-g-8">{{selectedSubscriber.createdAt}}</div>            
         </div>
     </p-dialog>
 </div>

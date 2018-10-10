@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  domain: "https://foxpify.com"
+  domain: "https://dev.foxpify.com:50001/luckywheel/admin"
 };
 
 /*

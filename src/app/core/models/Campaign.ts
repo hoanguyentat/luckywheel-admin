@@ -1,6 +1,14 @@
 export interface CampaignModel {
-    vin;
-    year;
-    brand;
-    color;
+    updatedAt;
+    shopId;
+    id;
+    startedAt;
+    active;
+    description;
+    name;
+    metadata;
+    slides;
+    completedAt;
+    winProbability;
+    createdAt;
 }

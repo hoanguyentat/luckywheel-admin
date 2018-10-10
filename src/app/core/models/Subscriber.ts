@@ -1,6 +1,8 @@
 export interface SubscriberModel {
-    vin;
-    year;
-    brand;
-    color;
+    email;
+    shopId;
+    id;
+    fullName;
+    campaignId;
+    createdAt;
 }

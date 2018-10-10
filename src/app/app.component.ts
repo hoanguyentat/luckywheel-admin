@@ -21,7 +21,7 @@ export class AppComponent {
 
   ngOnInit($event) {
     
-    if(localStorage.getItem("currentUser")) {
+    if(sessionStorage.getItem('jwt_token')) {
         this.userStatus = true;
     }
     this.itemsMenu = [

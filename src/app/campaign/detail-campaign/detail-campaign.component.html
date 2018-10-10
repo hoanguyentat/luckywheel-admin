@@ -1,39 +1,47 @@
 <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
-<div class="ui-g" style="padding: 30px;">
+<div class="ui-g" style="padding: 30px;" *ngIf="campaign">
     <div class="ui-md-12 ui-lg-4">   
-        <p-card title="Black Friday" subtitle="Description" styleClass="ui-card-shadow">
+        <p-card title="{{campaign.name | uppercase}}" subtitle="Description" styleClass="ui-card-shadow">
             <p-header>
-                <img src="https://www.primefaces.org/primeng/assets/showcase/images/usercard.png">
+                <img src="https://mybroadband.co.za/news/wp-content/uploads/2016/11/Black-Friday-shopping-survival.jpg">
             </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
+            <div>
+                {{campaign?.description}}
+            </div>
             <p-footer>
-                <a href="/#/campaign/{{id}}/edit" pButton type="button" label="Update" icon="pi pi-check" style="margin-right: .25em"></a>
-                <button pButton type="button" label="Stop" icon="pi pi-ban" class="ui-button-danger"></button>
+                <a href="/#/campaign/{{campaignId}}/edit" pButton type="button" label="Update" icon="pi pi-check" style="margin-right: .25em"></a>
+                <button *ngIf="campaign.active" pButton type="button" (click)="stopCampaign(campaignId)" label="Stop" icon="pi pi-ban" class="ui-button-danger"></button>
+                <button *ngIf="!campaign.active" pButton type="button" (click)="activeCampaign(campaignId)" label="Active" icon="pi pi-caret-right" class="ui-button-success"></button>
             </p-footer>
         </p-card>
     </div>
     <div class="ui-lg-8 ui-md-12">
         <div class="ui-g-12 ui-md-12">
-            <p-table [columns]="cols" [value]="campaigns">
+            <p-table [columns]="colsSlice" [value]="slices">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
+                        <th>
+                            #
+                        </th>
                         <th *ngFor="let col of columns">
                             {{col.header}}
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-campaign let-columns="columns">
+                <ng-template pTemplate="body" let-slice let-columns="columns" let-i="rowIndex">
                     <tr>
+                        <td>
+                            {{i + 1}}
+                        </td>
                         <td *ngFor="let col of columns">
-                                {{campaign[col.field]}}
+                                {{slice[col.field]}}
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
-        <div class="ui-g-12 ui-md-12">
-            <p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars">
+        <div class="ui-g-12 ui-md-12" *ngIf="subscribers">
+            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers">
                 <ng-template pTemplate="caption">
                     <h3>Subscribers of campaign</h3>
                     <div class="ui-helper-clearfix">
@@ -43,13 +51,19 @@
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
+                        <th>
+                            #
+                        </th>
                         <th *ngFor="let col of columns">
                             {{col.header}}
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
                     <tr [pSelectableRow]="rowData">
+                        <td>
+                            {{i+1}}
+                        </td>
                         <td *ngFor="let col of columns">
                             {{rowData[col.field]}}
                         </td>

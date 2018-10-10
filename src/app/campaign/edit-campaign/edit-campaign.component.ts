@@ -27,7 +27,7 @@ export class EditCampaignComponent implements OnInit {
       'description': new FormControl('')
     });
 
-    this.campaignService.getCampaigns().subscribe(result => {
+    this.campaignService.getList().subscribe(result => {
       this.slices = result['data'];
     });
 

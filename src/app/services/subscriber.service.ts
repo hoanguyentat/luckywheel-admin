@@ -5,23 +5,27 @@ import {SubscriberModel} from '../core/models/Subscriber';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { ErrorsService } from './errors.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SubscriberService {
 
     constructor(private http: HttpClient, private errorsService: ErrorsService) {}
-    subUrl = '/assets/data/cars-large.json'
+    // subUrl = '/assets/data/cars-large.json'
+
 
     getSubscribers(): Observable<SubscriberModel[]> {
-        return this.http.get<SubscriberModel[]>(this.subUrl)
+        let url = `${environment.domain}/subscribers?page=1&size=20`;
+        return this.http.get<SubscriberModel[]>(url)
                     .pipe(
-                        tap(subscribers => {console.log("fetch data subscriber")}),
+                        tap(_subscribers => {}),
                         catchError(this.errorsService.handleError('getSubscriber', []))
                         );
     }
 
     getSubscriber(id: number): Observable<SubscriberModel> {
-        return this.http.get<SubscriberModel>(this.subUrl)
+        let url = `${environment.domain}/subscribers?page=1&size=20`;
+        return this.http.get<SubscriberModel>(url)
         .pipe(
             tap(subscriber => {}),
             catchError(this.errorsService.handleError<SubscriberModel>("Error get subscriber ${id}"))

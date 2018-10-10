@@ -4,7 +4,7 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="ui-g" style="padding: 30px; min-height: 900px;">
     <div class="ui-md-12 ui-lg-4">   
-        <form [formGroup]="campaignForm" (ngSubmit)="onSubmit(campaignForm.value)">
+        <form [formGroup]="campaignForm" (ngSubmit)="createCampaign(campaignForm.value)">
             <p-panel header="Quick Campaign">
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                     <div class="ui-grid-row">
@@ -12,7 +12,7 @@
                             Name *:
                         </div>
                         <div class="ui-grid-col-8">
-                            <input pInputText type="text" formControlName="name" placeholder="Required"/>
+                            <input pInputText type="text" formControlName="name" placeholder="Black Friday"/>
                         </div>
                     </div>
                     <div class="ui-grid-row">
@@ -35,11 +35,6 @@
                             <button pButton type="submit" label="Create campaign" [disabled]="!campaignForm.valid"></button>
                         </div>
                     </div>
-                    <div style="text-align:center;margin-top:20px" *ngIf="submitted">
-                        Form Submitted
-                        <br>
-                        {{diagnostic}}
-                    </div>
                 </div>
             </p-panel>
         </form>
@@ -50,20 +45,23 @@
                 <div class="meta">
                 <div class="photo" style="background-image: url(https://mybroadband.co.za/news/wp-content/uploads/2016/11/Black-Friday-shopping-survival.jpg)"></div>
                 <ul class="details">
-                    <li class="author"><a href="#">John Doe</a></li>
-                    <li class="date">Aug. 24, 2015</li>
+                    <li class="author"><a href="#">{{campaign.createdAt}}</a></li>
+                    <li class="date">{{campaign.completedAt}}</li>
                 </ul>
                 </div>
                 <div class="description">
-                <h1>Black Friday</h1>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
+                <h1>{{campaign.name}}</h1>
+                    <p>
+                        {{campaign.description}}
+                    </p>
                     <ul class="list-inline">
-                        <li><a href="/#/campaign/2/edit"><span class="glyphicon glyphicon-pencil"> Edit</span></a></li> | 
-                        <li><a (click)="removeCampaign()" style="color: darkgoldenrod;" href="#"><span class="glyphicon glyphicon-trash"> Remove</span></a></li> | 
-                        <li><a (click)="stopCampaign()" style="color: red;" href="#"><span class="	glyphicon glyphicon-stop"> Stop</span></a></li>
+                        <li><a href="/#/campaign/{{campaign.id}}/edit"><span class="glyphicon glyphicon-pencil"> Edit</span></a></li> | 
+                        <li><a (click)="removeCampaign(campaign.id)" style="color: darkgoldenrod; cursor: pointer;"><span class="glyphicon glyphicon-trash"> Remove</span></a></li> | 
+                        <li *ngIf="campaign.active"><a (click)="stopCampaign(campaign.id)" style="color: red; cursor: pointer;"><span class="glyphicon glyphicon-stop"> Stop</span></a></li>
+                        <li *ngIf="!campaign.active"><a (click)="activeCampaign(campaign.id)" style="color: rgb(238, 222, 6); cursor: pointer;"><span class="glyphicon glyphicon-play-circle"> Active</span></a></li>
                     </ul>
                     <p class="read-more">
-                        <a href="/#/campaign/2">More Details</a>
+                        <a href="/#/campaign/{{campaign.id}}">More Details</a>
                     </p>
                 </div>
             </div>

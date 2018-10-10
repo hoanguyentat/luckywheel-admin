@@ -11,10 +11,12 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class CampaignService {
 
+    urlDomain = environment.domain;
     constructor(private http: HttpClient, private messageService: MessageService, private errorsService: ErrorsService) {}
 
-    getCampaigns(): Observable<CampaignModel[]> {
-        let urlCamps = '/assets/data/cars-small.json';
+    getList(): Observable<CampaignModel[]> {
+        // let urlCamps = '/assets/data/cars-small.json';
+        let urlCamps = `${this.urlDomain}/campaigns?page=1&size=20`;
         return this.http.get<CampaignModel[]>(urlCamps)
             .pipe(
                 tap(_campaigns => {}),
@@ -22,12 +24,55 @@ export class CampaignService {
             );
     }
 
-    getCampaign(id: number): Observable<CampaignModel> {
-        let urlDetail = '/assets/data/cars-small.json'    
+    getDetail(id: string): Observable<CampaignModel> {
+        // let urlDetail = '/assets/data/cars-small.json'
+        let urlDetail = `${this.urlDomain}/campaigns/${id}`;      
         return this.http.get<CampaignModel>(urlDetail)
             .pipe(
                 tap(_campaign => {}),
-                catchError(this.errorsService.handleError<CampaignModel>('Error get campaign id = ${id}'))
+                catchError(this.errorsService.handleError<CampaignModel>(`Error get campaign id = ${id}`))
             );
+    }
+
+    create(data): Observable<CampaignModel> {
+        let url = `${this.urlDomain}/campaigns`;
+        return this.http.post<CampaignModel>(url, data).pipe(
+            tap(_campaign => {this.messageService.info("Created campaign!")}),
+            catchError(this.errorsService.handleError<CampaignModel>(`Error create campaign`))
+        )
+    }
+
+    stop(id: string): Observable<CampaignModel> {
+        let url = `${this.urlDomain}/campaigns/${id}/deactivate`;
+        console.log(url);
+        return this.http.post<CampaignModel>(url, {}).pipe(
+            tap(_campaign => {this.messageService.info("Stopped campaign!")}),
+            catchError(this.errorsService.handleError<CampaignModel>(`Error stopped campaign id = ${id}`))
+        )
+    }
+
+    active(id: string):  Observable<CampaignModel> {
+        let url = `${this.urlDomain}/campaigns/${id}/activate`;
+        console.log(url);
+        return this.http.post<CampaignModel>(url, {}).pipe(
+            tap(_campaign => {this.messageService.info("Activated campaign!")}),
+            catchError(this.errorsService.handleError<CampaignModel>(`Error activated campaign id = ${id}`))
+        )
+    }
+
+    update(id: string, data: any) {
+        let url = `${this.urlDomain}/campaigns/${id}`;
+        return this.http.patch<CampaignModel>(url, data).pipe(
+            tap(_campaign => {this.messageService.info("Updated campaign!")}),
+            catchError(this.errorsService.handleError<CampaignModel>(`Error udpate campaign id = ${id}`))
+        )
+    }
+
+    remove(id: string): Observable<CampaignModel> {
+        let url = `${this.urlDomain}/campaigns/${id}`;
+        return this.http.delete<CampaignModel>(url).pipe(
+            tap(_campaign => {this.messageService.info("Deleted campaign!")}),
+            catchError(this.errorsService.handleError<CampaignModel>(`Error delete campaign id = ${id}`))
+        )
     }
 }

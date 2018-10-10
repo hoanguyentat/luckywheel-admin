@@ -4,6 +4,9 @@ import { CampaignModel } from '../../core/models/Campaign';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment.prod';
+import { SubscriberModel } from '../../core/models/Subscriber';
+import { SubscriberService } from '../../services/subscriber.service';
+import { Slice } from '../../core/models/Slice';
 
 @Component({
   selector: 'app-detail-campaign',
@@ -12,36 +15,67 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class DetailCampaignComponent implements OnInit {
 
-  campaigns: CampaignModel[];
-  cols: any[];
+  campaign: CampaignModel;
+  slices: Slice[];
+  colsSlice: any[];
+  colsSub: any[];
   itemsBreadrumb: MenuItem[];
+  campaignId: string;
 
-  cars: CampaignModel[];
-  selectedCars: CampaignModel[];
-  id: string;
-  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute) { }
+  subscribers: SubscriberModel[];
+  selectedSubscribers: SubscriberModel[];
+  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute, private subService: SubscriberService) { }
 
   ngOnInit() {
 
-    this.id = this.activateRoute.snapshot.paramMap.get('id');
+    this.campaignId = this.activateRoute.snapshot.paramMap.get('id');
 
-    this.campaignService.getCampaigns().subscribe(result => {
-      this.campaigns = result['data'];
-      this.cars = result['data'];
+    this.campaignService.getDetail(this.campaignId).subscribe(result => {
+      console.log(result);
+      this.campaign = result;
+      this.slices = result['slices'];
     });
 
-    this.cols = [
-        { field: 'vin', header: 'Vin' },
-        { field: 'year', header: 'Year' },
-        { field: 'brand', header: 'Brand' },
-        { field: 'color', header: 'Color' }
+    this.subService.getSubscribers().subscribe( subs => {
+      console.log(subs);
+      this.subscribers = subs['content'];
+    })
+
+    this.colsSlice = [
+        { field: 'label', header: 'Label' },
+        { field: 'index', header: 'Index' },
+        { field: 'probability', header: 'Probability' },
+        { field: 'discountCode', header: 'DiscountCode' }
     ];
+
+    this.colsSub = [
+      { field: 'fullName', header: 'Full Name' },
+      { field: 'email', header: 'Email' },
+      { field: 'createdAt', header: 'Created At' }
+    ]
 
     this.itemsBreadrumb = [
       {label:'Home',  url: '/#/'},
       {label:'Campaign', url: '/#/campaign'},
       {label:'Detail Campaign'}
     ]
+  }
+
+  stopCampaign(id: string) {
+    this.campaignService.stop(id).subscribe(result => {
+      setTimeout( () => {
+        location.reload();
+      }, 1000);
+    })
+  }
+
+  activeCampaign(id: string) {
+    this.campaignService.active(id).subscribe(result => {
+      // this.messageService.add({severity:'info', summary:'Success', detail:'Add campaign success!'});  
+      setTimeout( () => {
+        location.reload();
+      }, 1000);
+    })
   }
 
 }
