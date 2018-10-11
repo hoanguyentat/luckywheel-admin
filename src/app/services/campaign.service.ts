@@ -30,7 +30,7 @@ export class CampaignService {
         return this.http.get<CampaignModel>(urlDetail)
             .pipe(
                 tap(_campaign => {}),
-                catchError(this.errorsService.handleError<CampaignModel>(`Error get campaign id = ${id}`))
+                catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
             );
     }
 
@@ -38,16 +38,16 @@ export class CampaignService {
         let url = `${this.urlDomain}/campaigns`;
         return this.http.post<CampaignModel>(url, data).pipe(
             tap(_campaign => {this.messageService.info("Created campaign!")}),
-            catchError(this.errorsService.handleError<CampaignModel>(`Error create campaign`))
+            catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
 
     stop(id: string): Observable<CampaignModel> {
         let url = `${this.urlDomain}/campaigns/${id}/deactivate`;
-        console.log(url);
+        // console.log(url);
         return this.http.post<CampaignModel>(url, {}).pipe(
             tap(_campaign => {this.messageService.info("Stopped campaign!")}),
-            catchError(this.errorsService.handleError<CampaignModel>(`Error stopped campaign id = ${id}`))
+            catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
 
@@ -56,7 +56,7 @@ export class CampaignService {
         console.log(url);
         return this.http.post<CampaignModel>(url, {}).pipe(
             tap(_campaign => {this.messageService.info("Activated campaign!")}),
-            catchError(this.errorsService.handleError<CampaignModel>(`Error activated campaign id = ${id}`))
+            catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
 
@@ -64,7 +64,7 @@ export class CampaignService {
         let url = `${this.urlDomain}/campaigns/${id}`;
         return this.http.patch<CampaignModel>(url, data).pipe(
             tap(_campaign => {this.messageService.info("Updated campaign!")}),
-            catchError(this.errorsService.handleError<CampaignModel>(`Error udpate campaign id = ${id}`))
+            catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
 
@@ -72,7 +72,7 @@ export class CampaignService {
         let url = `${this.urlDomain}/campaigns/${id}`;
         return this.http.delete<CampaignModel>(url).pipe(
             tap(_campaign => {this.messageService.info("Deleted campaign!")}),
-            catchError(this.errorsService.handleError<CampaignModel>(`Error delete campaign id = ${id}`))
+            catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
 }

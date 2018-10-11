@@ -18,7 +18,7 @@ export class AuthenticationService {
 
   login(token: string) {
     sessionStorage.setItem('jwt_token', token);
-    this.router.navigate['/']
+    // this.router.navigate['/'];
     return token;
   }
 }

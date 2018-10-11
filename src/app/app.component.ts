@@ -17,7 +17,12 @@ export class AppComponent {
   constructor(
     private authService: AuthenticationService, 
     private router: Router, 
-    private confirmationService: ConfirmationService) {}
+    private confirmationService: ConfirmationService
+    ) {
+        if(sessionStorage.getItem('jwt_token')) {
+            this.userStatus = true;
+        }
+    }
 
   ngOnInit($event) {
     

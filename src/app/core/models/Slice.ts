@@ -1,4 +1,4 @@
-export interface Slice {
+export class SliceModel {
     label;
     index;
     probability;

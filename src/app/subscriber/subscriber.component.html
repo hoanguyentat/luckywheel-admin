@@ -1,7 +1,7 @@
 
 <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
-<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px;" *ngIf="subscribers != null">
-    <p-dataView #dv [value]="subscribers" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="brand" [sortField]="sortField" [sortOrder]="sortOrder">
+<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px; min-height: 700px;" *ngIf="subscribers != null">
+    <p-dataView #dv [value]="subscribers" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="email" [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
@@ -10,7 +10,7 @@
                     </div>
                     <div class="ui-g-6 ui-md-4 filter-container">
                         <div style="position:relative">
-                            <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                            <input type="search" pInputText placeholder="Search by email" (keyup)="dv.filter($event.target.value)">
                         </div>
                     </div>
                     <div class="ui-g-6 ui-md-4" style="text-align:right">
@@ -22,7 +22,7 @@
         <ng-template let-subscriber pTemplate="listItem">
             <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
                 <div class="ui-g-12 ui-md-2" style="text-align:center">
-                    <img class="img img-responsive" src="http://pngimages.net/sites/default/files/user-png-image-15189.png">
+                    <img class="img img-responsive" style="height: 100px;" src="http://pngimages.net/sites/default/files/user-png-image-15189.png">
                 </div>
                 <div class="ui-g-12 ui-md-8 subscriber-details">
                     <div class="ui-g">

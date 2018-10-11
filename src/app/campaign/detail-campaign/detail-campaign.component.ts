@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment.prod';
 import { SubscriberModel } from '../../core/models/Subscriber';
 import { SubscriberService } from '../../services/subscriber.service';
-import { Slice } from '../../core/models/Slice';
+import { SliceModel } from '../../core/models/Slice';
 
 @Component({
   selector: 'app-detail-campaign',
@@ -16,7 +16,7 @@ import { Slice } from '../../core/models/Slice';
 export class DetailCampaignComponent implements OnInit {
 
   campaign: CampaignModel;
-  slices: Slice[];
+  slices: SliceModel[];
   colsSlice: any[];
   colsSub: any[];
   itemsBreadrumb: MenuItem[];
@@ -31,21 +31,21 @@ export class DetailCampaignComponent implements OnInit {
     this.campaignId = this.activateRoute.snapshot.paramMap.get('id');
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this.campaign = result;
       this.slices = result['slices'];
     });
 
     this.subService.getSubscribers().subscribe( subs => {
-      console.log(subs);
+      // console.log(subs);
       this.subscribers = subs['content'];
     })
 
     this.colsSlice = [
-        { field: 'label', header: 'Label' },
         { field: 'index', header: 'Index' },
+        { field: 'label', header: 'Label' },
+        { field: 'discountCode', header: 'DiscountCode' },
         { field: 'probability', header: 'Probability' },
-        { field: 'discountCode', header: 'DiscountCode' }
     ];
 
     this.colsSub = [

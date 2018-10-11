@@ -3,6 +3,8 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CampaignService } from '../../services/campaign.service';
 import { CampaignModel } from '../../core/models/Campaign';
+import { ActivatedRoute } from '@angular/router';
+import { SliceModel } from '../../core/models/Slice';
 
 @Component({
   selector: 'app-edit-campaign',
@@ -16,20 +18,47 @@ export class EditCampaignComponent implements OnInit {
   campaignForm: FormGroup;
   submitted: boolean;
   description: string;
-  slices: CampaignModel[];
+  slices: SliceModel[];
   itemsBreadrumb: MenuItem[];
+  campaignId: string;
+  colsSlice: any[];
 
-  constructor(private campaignService: CampaignService, private fb: FormBuilder, private messageService: MessageService) { }
+  displayDialog: boolean;
+  slice: SliceModel;
+  newSlice: boolean;
+  selectedSlice: SliceModel;
+
+  constructor(
+    private campaignService: CampaignService, 
+    private fb: FormBuilder, 
+    private messageService: MessageService,
+    private activateRoute: ActivatedRoute,
+    ) { }
 
   ngOnInit() {
+
+    this.campaignId = this.activateRoute.snapshot.paramMap.get('id');
     this.campaignForm = this.fb.group({
       'name': new FormControl('', Validators.required),
       'description': new FormControl('')
     });
 
-    this.campaignService.getList().subscribe(result => {
-      this.slices = result['data'];
+    this.campaignService.getDetail(this.campaignId).subscribe(result => {
+      this.campaignForm.setValue({
+        "name": result['name'],
+        "description": result['description']
+      });
+      if(result['slices']) {
+        this.slices = result['slices'];
+      }
     });
+
+    this.colsSlice = [
+      { field: 'index', header: 'Index' },
+      { field: 'label', header: 'Label' },
+      { field: 'discountCode', header: 'DiscountCode' },
+      { field: 'probability', header: 'Probability' },
+    ];
 
     this.itemsBreadrumb = [
       {label:'Home',  url: '/'},
@@ -38,9 +67,69 @@ export class EditCampaignComponent implements OnInit {
     ];
   }
 
+  showDialogToAdd() {
+    this.newSlice = true;
+    this.slice = new SliceModel;
+    this.displayDialog = true;
+  }
+
+  save() {
+    let slices: Array<SliceModel> = [];
+    if (this.slices) {
+      slices = [...this.slices];
+    } else {
+    }
+    // console.log(this.slice)
+    if (this.newSlice)
+        slices.push(this.slice);
+    else
+        slices[this.slices.indexOf(this.selectedSlice)] = this.slice;
+
+    this.slices = slices;
+    this.slice = null;
+    this.displayDialog = false;
+  }
+
+  delete() {
+    let index = this.slices.indexOf(this.selectedSlice);
+    this.slices = this.slices.filter((val, i) => i != index);
+    this.slice = null;
+    this.displayDialog = false;
+  }
+
+  onRowSelect(event) {
+    // console.log(event.data)
+    this.newSlice = false;
+    this.slice = this.cloneSlice(event.data);
+    this.displayDialog = true;
+  }
+
+  cloneSlice(slice: SliceModel): SliceModel {
+    let cslice= new SliceModel();
+    for (let prop in slice) {
+        cslice[prop] = slice[prop];
+    }
+    return cslice;
+  }
+
   updateCampaign(){
-    console.log(this.campaignForm.value)
-    console.log(this.slices);
+    // console.log(this.campaignForm.value)
+    // console.log(this.slices);
+
+    let data = {
+      "name": this.campaignForm.value['name'],
+      "description": this.campaignForm.value['description'],
+      "slices": this.slices
+    }
+    // console.log(data);
+
+    this.campaignService.update(this.campaignId, data).subscribe(result => {  
+      if(result) {
+        window.location.replace(`/#/campaign/${this.campaignId}`)
+      }
+    }, err => {
+      console.log(err);
+    })
   }
 
   onSubmit(value: string) {

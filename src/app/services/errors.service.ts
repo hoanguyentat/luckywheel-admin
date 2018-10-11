@@ -11,7 +11,7 @@ export class ErrorsService {
   constructor(private toastr: ToastrService, private messageService: MessageService) { }
 
   public log(message: string) {
-    this.messageService.error(`HeroService: ${message}`);
+    this.messageService.error(`${message}`);
   }
 
   public handleError<T> (operation = 'operation', result?: T) {
@@ -21,7 +21,7 @@ export class ErrorsService {
       console.error(error); // log to console instead
    
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation}: ${error}`);
    
       // Let the app keep running by returning an empty result.
       return of(result as T);

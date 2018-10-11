@@ -13,7 +13,9 @@ import {
   TabViewModule, CodeHighlighterModule, ToolbarModule, 
   SplitButtonModule,
   MenubarModule,
-  MessageService
+  MessageService,
+  DialogModule,
+  ConfirmDialogModule
 } from 'primeng/primeng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'node_modules/primeng/toast';
@@ -40,6 +42,8 @@ import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
     ToolbarModule,
     SplitButtonModule,
     MenubarModule,
+    DialogModule,
+    ConfirmDialogModule,
     CodeHighlighterModule
   ],
   declarations: [
