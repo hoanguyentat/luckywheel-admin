@@ -14,9 +14,9 @@ export class CampaignService {
     urlDomain = environment.domain;
     constructor(private http: HttpClient, private messageService: MessageService, private errorsService: ErrorsService) {}
 
-    getList(): Observable<CampaignModel[]> {
+    getList(page: number, size: number): Observable<CampaignModel[]> {
         // let urlCamps = '/assets/data/cars-small.json';
-        let urlCamps = `${this.urlDomain}/campaigns?page=1&size=20`;
+        let urlCamps = `${this.urlDomain}/campaigns?page=${page}&size=${size}`;
         return this.http.get<CampaignModel[]>(urlCamps)
             .pipe(
                 tap(_campaigns => {}),

@@ -42,7 +42,7 @@
             <div style="padding:.5em" class="ui-g-12 ui-md-3">
                 <p-panel [header]="subscriber.vin" [style]="{'text-align':'center'}">
                     <img src="http://pngimages.net/sites/default/files/user-png-image-15189.png" width="60">
-                    <div class="subscriber-detail">{{subscriber.year}} - {{subscriber.color}}</div>
+                    <div class="subscriber-detail">{{subscriber.fullName}} - {{subscriber.email}}</div>
                     <hr class="ui-widget-content" style="border-top:0">
                     <button pButton type="button" icon="pi pi-search" (click)="selectSubscriber($event, subscriber)" style="margin-top:0"></button>
                 </p-panel>
@@ -61,7 +61,7 @@
             <div class="ui-g-4">Email: </div>
             <div class="ui-g-8">{{selectedSubscriber.email}}</div>
 
-            <div class="ui-g-4">Created At: </div>
+            <div class="ui-g-4">Join At: </div>
             <div class="ui-g-8">{{selectedSubscriber.createdAt}}</div>            
         </div>
     </p-dialog>

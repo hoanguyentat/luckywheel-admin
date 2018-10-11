@@ -1,8 +1,7 @@
-
 <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
-<div class="ui-g" style="padding: 30px; min-height: 900px;">
+<div class="ui-g" style="padding: 30px; min-height: 800px;">
     <div class="ui-md-12 ui-lg-4">   
         <form [formGroup]="campaignForm" (ngSubmit)="createCampaign(campaignForm.value)">
             <p-panel header="Quick Campaign" [style]= "{'font-style': 'bold'}">
@@ -39,9 +38,9 @@
             </p-panel>
         </form>
     </div>
-    <div class="ui-lg-8 ui-md-12">
-       <div class="row" *ngFor="let campaign of campaigns"> 
-            <div class="blog-card">
+    <div class="ui-lg-8 ui-md-12" *ngIf="campaigns">
+       <div class="row" style="min-height: 700px;"> 
+            <div class="blog-card" *ngFor="let campaign of campaigns">
                 <div class="meta">
                 <div class="photo" style="background-image: url(https://mybroadband.co.za/news/wp-content/uploads/2016/11/Black-Friday-shopping-survival.jpg)"></div>
                 <ul class="details">
@@ -66,5 +65,6 @@
                 </div>
             </div>
        </div>
+       <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>

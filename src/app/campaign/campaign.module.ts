@@ -15,7 +15,8 @@ import {
   MenubarModule,
   MessageService,
   DialogModule,
-  ConfirmDialogModule
+  ConfirmDialogModule,
+  PaginatorModule
 } from 'primeng/primeng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'node_modules/primeng/toast';
@@ -44,6 +45,7 @@ import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
     MenubarModule,
     DialogModule,
     ConfirmDialogModule,
+    PaginatorModule,
     CodeHighlighterModule
   ],
   declarations: [

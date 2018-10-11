@@ -17,8 +17,9 @@ export class CampaignComponent implements OnInit {
   submitted: boolean;
   description: string;
   totalPage: number;
+  totalCount: number;
   currentPage = 1;
-  pageSize = 20;
+  pageSize = 5;
 
 
   campaigns: CampaignModel[];
@@ -32,9 +33,9 @@ export class CampaignComponent implements OnInit {
     private route: Router) { }
 
   ngOnInit() {
-    this.campaignService.getList().subscribe(result => {
+    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];
-      // console.log(this.campaigns);
+      this.totalCount = result['totalCount'];
     });
 
     this.cols = [
@@ -55,12 +56,19 @@ export class CampaignComponent implements OnInit {
     });
   }
 
+  paginate($event) {
+    console.log($event);
+    this.currentPage = $event.page + 1;
+    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
+      this.campaigns = result['content'];
+    });
+  }
+
   removeCampaign(id) {
     this.campaignService.remove(id).subscribe(result => {
-      // this.messageService.add({severity:'info', summary:'Success', detail:'Deleted campaign!'});
       setTimeout( () => {
         location.reload();
-      }, 500);
+      }, 200);
     })
   }
 
@@ -68,25 +76,23 @@ export class CampaignComponent implements OnInit {
     this.campaignService.stop(id).subscribe(result => {
       setTimeout( () => {
         location.reload();
-      }, 500);
+      }, 200);
     })
   }
 
   activeCampaign(id: string) {
     this.campaignService.active(id).subscribe(result => {
-      // this.messageService.add({severity:'info', summary:'Success', detail:'Add campaign success!'});  
       setTimeout( () => {
         location.reload();
-      }, 500);
+      }, 200);
     })
   }
 
   createCampaign(value: string) {
     this.campaignService.create(JSON.stringify(value)).subscribe(result => {
-      // this.messageService.add({severity:'info', summary:'Success', detail:'Add campaign success!'});  
       setTimeout( () => {
         location.reload();
-      }, 500);
+      }, 200);
     })
     // this.submitted = true;
   }

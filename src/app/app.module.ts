@@ -37,15 +37,15 @@ import AuthGuard from './_guards/auth.guard';
     MenubarModule,
     BreadcrumbModule,
     HttpClientModule,
-    DataViewModule,
+    // DataViewModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       closeButton: true
     }),
     CoreModule,
     CardModule,
-    TableModule,
-    ProgressSpinnerModule,
+    // TableModule,
+    // ProgressSpinnerModule,
     ConfirmDialogModule,
     AppRoutingModule
   ],
