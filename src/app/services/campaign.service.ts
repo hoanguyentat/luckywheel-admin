@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { ErrorsService } from './errors.service';
 import { environment } from '../../environments/environment';
+import { SubscriberModel } from '../core/models/Subscriber';
 
 @Injectable()
 export class CampaignService {
@@ -28,10 +29,19 @@ export class CampaignService {
         // let urlDetail = '/assets/data/cars-small.json'
         let urlDetail = `${this.urlDomain}/campaigns/${id}`;      
         return this.http.get<CampaignModel>(urlDetail)
-            .pipe(
-                tap(_campaign => {}),
-                catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
-            );
+        .pipe(
+            tap(_campaign => {}),
+            catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
+        );
+    }
+
+    getSubscribers(campaignId: string, page: number, size: number): Observable<SubscriberModel[]> {
+        let url = `${this.urlDomain}/subscribers?campaignId=${campaignId}&page=${page}&size=${size}`;      
+        return this.http.get<SubscriberModel[]>(url)
+        .pipe(
+            tap(_campaign => {}),
+            catchError(this.errorsService.handleError(`Error: `, []))
+        );
     }
 
     create(data): Observable<CampaignModel> {

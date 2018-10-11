@@ -23,21 +23,26 @@ export class DetailCampaignComponent implements OnInit {
   campaignId: string;
 
   subscribers: SubscriberModel[];
+
+  currentPageSub = 1;
+  totalSubs: number;
+  pageSizeSubs = 10;
+
   selectedSubscribers: SubscriberModel[];
-  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute, private subService: SubscriberService) { }
+  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
     this.campaignId = this.activateRoute.snapshot.paramMap.get('id');
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
-      // console.log(result);
       this.campaign = result;
       this.slices = result['slices'];
     });
 
-    this.subService.getSubscribers().subscribe( subs => {
+    this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe( subs => {
       // console.log(subs);
+      this.totalSubs = subs['totalCount'];
       this.subscribers = subs['content'];
     })
 
@@ -59,6 +64,14 @@ export class DetailCampaignComponent implements OnInit {
       {label:'Campaign', url: '/#/campaign'},
       {label:'Detail Campaign'}
     ]
+  }
+
+  paginateSubs($event) {
+    console.log($event);
+    this.currentPageSub = $event.page + 1;
+    this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe(subs => {
+      this.subscribers = subs['content'];
+    });
   }
 
   stopCampaign(id: string) {

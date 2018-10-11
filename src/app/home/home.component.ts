@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if(sessionStorage.getItem('jwt_token')) {
       setTimeout(() => {
-        console.log("Redirecting to home page");
+        // console.log("Redirecting to home page");
         window.location.replace(`/#/campaign`);
       }, 200);
     } else {
