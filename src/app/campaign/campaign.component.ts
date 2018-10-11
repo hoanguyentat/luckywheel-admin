@@ -57,7 +57,6 @@ export class CampaignComponent implements OnInit {
   }
 
   paginate($event) {
-    console.log($event);
     this.currentPage = $event.page + 1;
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];

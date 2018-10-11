@@ -1,12 +1,12 @@
 
 <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 <div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px; min-height: 700px;" *ngIf="subscribers != null">
-    <p-dataView #dv [value]="subscribers" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="email" [sortField]="sortField" [sortOrder]="sortOrder">
+    <p-dataView #dv [value]="subscribers" [paginator]="false" [rows]="10" paginatorPosition="both" filterBy="email" [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-4">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="true" [style]="{'min-width':'15em'}"></p-dropdown>
                     </div>
                     <div class="ui-g-6 ui-md-4 filter-container">
                         <div style="position:relative">
@@ -49,7 +49,7 @@
             </div>
         </ng-template>
     </p-dataView>
-
+    <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginateSubs($event)"></p-paginator>
     <p-dialog header="subscriber Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="300" (onAfterHide)="onDialogHide()">
         <div class="ui-g" *ngIf="selectedSubscriber">
             <div class="ui-g-12" style="text-align:center">

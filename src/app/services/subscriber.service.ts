@@ -14,8 +14,8 @@ export class SubscriberService {
     // subUrl = '/assets/data/cars-large.json'
 
 
-    getSubscribers(): Observable<SubscriberModel[]> {
-        let url = `${environment.domain}/subscribers?page=1&size=20`;
+    getSubscribers(page: number, size: number): Observable<SubscriberModel[]> {
+        let url = `${environment.domain}/subscribers?page=${page}&size=${size}`;
         return this.http.get<SubscriberModel[]>(url)
                     .pipe(
                         tap(_subscribers => {}),
@@ -27,7 +27,7 @@ export class SubscriberService {
         let url = `${environment.domain}/subscribers?page=1&size=20`;
         return this.http.get<SubscriberModel>(url)
         .pipe(
-            tap(subscriber => {}),
+            tap(_subscriber => {}),
             catchError(this.errorsService.handleError<SubscriberModel>("Error get subscriber ${id}"))
         );
     }

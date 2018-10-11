@@ -194,3 +194,9 @@
     }
   }
   
+
+:host >>> .ui-paginator {
+    background-color: #ffffff;
+    border: 0px solid #c8c8c8;
+    padding: 0;
+}

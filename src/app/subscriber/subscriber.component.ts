@@ -35,8 +35,7 @@ export class SubscriberComponent implements OnInit {
   constructor(private subscriberService: SubscriberService, private messageService: MessageService) { }
 
   ngOnInit() {
-    this.subscriberService.getSubscribers().subscribe(result => {
-      console.log(result)
+    this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(result => {
       this.subscribers = result['content'];
     });
 
@@ -44,7 +43,7 @@ export class SubscriberComponent implements OnInit {
       {label: 'Newest First', value: '!createdAt'},
       {label: 'Oldest First', value: 'createdAt'},
       {label: 'Email', value: 'email'}
-  ];
+    ];
 
 
     this.itemsBreadrumb = [
@@ -58,7 +57,14 @@ export class SubscriberComponent implements OnInit {
       { field: 'fullName', header: 'Full Name' },
       { field: 'email', header: 'Email' },
       { field: 'createdAt', header: 'Created At' }
-  ];
+   ];
+  }
+
+  paginateSubs($event) {
+    this.currentPage = $event.page + 1;
+    this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(subs => {
+      this.subscribers = subs['content'];
+    });
   }
 
   selectSubscriber(event: Event, subscriber: SubscriberModel) {

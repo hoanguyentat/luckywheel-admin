@@ -67,7 +67,6 @@ export class DetailCampaignComponent implements OnInit {
   }
 
   paginateSubs($event) {
-    console.log($event);
     this.currentPageSub = $event.page + 1;
     this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe(subs => {
       this.subscribers = subs['content'];
