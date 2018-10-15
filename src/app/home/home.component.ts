@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-home',
@@ -11,22 +12,21 @@ export class HomeComponent implements OnInit {
 
   jwtToken: string;
   domain = environment.domain;
-  constructor(private activedRoute: ActivatedRoute, private route: Router) { }
+  constructor(private activedRoute: ActivatedRoute, private route: Router, private messageService: MessageService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem('jwt_token')) {
-      setTimeout(() => {
-        // console.log("Redirecting to home page");
+       // send an object to app component
+        this.messageService.sendMessage(true);
         window.location.replace(`/#/campaign`);
-      }, 200);
     } else {
       this.jwtToken = this.activedRoute.snapshot.queryParams['token'];
       if(this.jwtToken) {
         sessionStorage.setItem('jwt_token', this.jwtToken);
-        // console.log(this.jwtToken);
+        this.messageService.sendMessage(true);
         window.location.replace('/#/campaign');
       } else {
-        // console.log("Do not have a token");
+        this.messageService.sendMessage(false);
       }
     }
 

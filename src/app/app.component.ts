@@ -2,6 +2,8 @@ import { Component, Input, Output } from '@angular/core';
 import {MenuItem, ConfirmationService} from 'primeng/api';
 import { AuthenticationService } from './services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { MessageService } from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -11,24 +13,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent {
   title = 'Lucky Wheel Admin';
   itemsMenu: MenuItem[];
-  userStatus = false;
+  userStatus: any;
+  subscription: Subscription;
   itemsBreadrumb: MenuItem[];
 
   constructor(
     private authService: AuthenticationService, 
     private router: Router, 
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
     ) {
-        if(sessionStorage.getItem('jwt_token')) {
-            this.userStatus = true;
-        }
+        // received a param from other component
+        this.subscription = this.messageService.getMessage().subscribe(message => { 
+            this.userStatus = message.userStatus; 
+        });
     }
 
   ngOnInit($event) {
     
-    if(sessionStorage.getItem('jwt_token')) {
-        this.userStatus = true;
-    }
+    // if(sessionStorage.getItem('jwt_token')) {
+    //     this.userStatus = true;
+    // } else {
+    //     this.userStatus = false;
+    // }
     this.itemsMenu = [
         {
             label: 'Home',

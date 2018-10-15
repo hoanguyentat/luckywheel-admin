@@ -36,6 +36,7 @@ export class CampaignComponent implements OnInit {
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];
       this.totalCount = result['totalCount'];
+      console.log(this.campaigns)
     });
 
     this.cols = [
