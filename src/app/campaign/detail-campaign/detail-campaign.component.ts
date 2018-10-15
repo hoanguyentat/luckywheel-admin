@@ -38,6 +38,7 @@ export class DetailCampaignComponent implements OnInit {
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
       this.campaign = result;
       this.slices = result['slices'];
+      console.log(this.campaign);
     });
 
     this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe( subs => {

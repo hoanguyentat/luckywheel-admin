@@ -47,12 +47,13 @@ export class EditCampaignComponent implements OnInit {
     });
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
+      // console.log(result);
       this.campaignName = result['name'];
       this.campaignForm.setValue({
         "name": result['name'],
         "description": result['description'],
-        "startedAt": result['startedAt'],
-        "completedAt": result['completedAt']
+        "startedAt": new Date(result['startedAt']),
+        "completedAt": new Date(result['completedAt'])
       });
       if(result['slices']) {
         this.slices = result['slices'];
