@@ -7,6 +7,7 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { CampaignService } from '../services/campaign.service';
 import { BreadcrumbModule} from 'primeng/breadcrumb';
+import { CalendarModule } from 'primeng/calendar';
 import {
   ButtonModule, MessageModule, PanelModule, 
   DropdownModule, InputTextModule, InputTextareaModule, 
@@ -46,6 +47,7 @@ import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
     DialogModule,
     ConfirmDialogModule,
     PaginatorModule,
+    CalendarModule,
     CodeHighlighterModule
   ],
   declarations: [

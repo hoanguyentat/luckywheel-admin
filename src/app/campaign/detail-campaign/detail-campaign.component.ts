@@ -49,14 +49,14 @@ export class DetailCampaignComponent implements OnInit {
     this.colsSlice = [
         { field: 'index', header: 'Index' },
         { field: 'label', header: 'Label' },
-        { field: 'discountCode', header: 'DiscountCode' },
+        { field: 'discountCode', header: 'Coupon' },
         { field: 'probability', header: 'Probability' },
     ];
 
     this.colsSub = [
       { field: 'fullName', header: 'Full Name' },
       { field: 'email', header: 'Email' },
-      { field: 'createdAt', header: 'Created At' }
+      { field: 'createdAt', header: 'Created Time' }
     ]
 
     this.itemsBreadrumb = [

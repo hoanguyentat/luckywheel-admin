@@ -21,6 +21,7 @@ export class EditCampaignComponent implements OnInit {
   slices: SliceModel[];
   itemsBreadrumb: MenuItem[];
   campaignId: string;
+  campaignName: string;
   colsSlice: any[];
 
   displayDialog: boolean;
@@ -40,13 +41,18 @@ export class EditCampaignComponent implements OnInit {
     this.campaignId = this.activateRoute.snapshot.paramMap.get('id');
     this.campaignForm = this.fb.group({
       'name': new FormControl('', Validators.required),
-      'description': new FormControl('')
+      'description': new FormControl(''),
+      'startedAt': new FormControl(''),
+      'completedAt': new FormControl('')
     });
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
+      this.campaignName = result['name'];
       this.campaignForm.setValue({
         "name": result['name'],
-        "description": result['description']
+        "description": result['description'],
+        "startedAt": result['startedAt'],
+        "completedAt": result['completedAt']
       });
       if(result['slices']) {
         this.slices = result['slices'];
@@ -56,13 +62,13 @@ export class EditCampaignComponent implements OnInit {
     this.colsSlice = [
       { field: 'index', header: 'Index' },
       { field: 'label', header: 'Label' },
-      { field: 'discountCode', header: 'DiscountCode' },
+      { field: 'discountCode', header: 'Coupon' },
       { field: 'probability', header: 'Probability' },
     ];
 
     this.itemsBreadrumb = [
-      {label:'Home',  url: '/'},
-      {label:'Campaign', url: '/#/campaign'},
+      {label:'Home',  url: '/#/'},
+      {label:'Campaigns', url: '/#/campaign'},
       {label:'Edit Campaign'},
     ];
   }

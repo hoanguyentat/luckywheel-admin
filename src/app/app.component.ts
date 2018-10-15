@@ -29,13 +29,8 @@ export class AppComponent {
         });
     }
 
-  ngOnInit($event) {
+  ngOnInit() {
     
-    // if(sessionStorage.getItem('jwt_token')) {
-    //     this.userStatus = true;
-    // } else {
-    //     this.userStatus = false;
-    // }
     this.itemsMenu = [
         {
             label: 'Home',
@@ -43,50 +38,50 @@ export class AppComponent {
             url: '/'
         },
         {
-            label: 'Campaign',
+            label: 'Campaigns',
             icon: 'pi pi-fw pi-bookmark',
             url: '/#/campaign'
         },
         {
-            label: 'Subscriber',
+            label: 'Subscribers',
             icon: 'pi pi-fw pi-user-plus',
             url: '/#/subscriber'
         },
-        {
-            label: 'Integration',
-            icon: 'pi pi-fw pi-cog',
-            url: '/#/integration',
-            items: [
-                {
-                    label: 'Edit',
-                    icon: 'pi pi-fw pi-pencil',
-                    items: [
-                        {label: 'Save', icon: 'pi pi-fw pi-save'},
-                        {label: 'Update', icon: 'pi pi-fw pi-save'},
-                    ]
-                },
-                {
-                    label: 'Other',
-                    icon: 'pi pi-fw pi-tags',
-                    items: [
-                        {label: 'Delete', icon: 'pi pi-fw pi-minus'}
-                    ]
-                }
-            ]
-        }
+        // {
+        //     label: 'Integrations',
+        //     icon: 'pi pi-fw pi-cog',
+        //     url: '/#/integration',
+        //     items: [
+        //         {
+        //             label: 'Edit',
+        //             icon: 'pi pi-fw pi-pencil',
+        //             items: [
+        //                 {label: 'Save', icon: 'pi pi-fw pi-save'},
+        //                 {label: 'Update', icon: 'pi pi-fw pi-save'},
+        //             ]
+        //         },
+        //         {
+        //             label: 'Other',
+        //             icon: 'pi pi-fw pi-tags',
+        //             items: [
+        //                 {label: 'Delete', icon: 'pi pi-fw pi-minus'}
+        //             ]
+        //         }
+        //     ]
+        // }
     ];
 
-    this.itemsBreadrumb = $event;
+    // this.itemsBreadrumb = $event;
   }
 
 
-  logout() {
-    this.confirmationService.confirm({
-        message: 'Are you sure?',
-        accept: () => {
-            this.authService.logout()
-            location.reload();
-        }
-    });
-}
+    logout() {
+        this.confirmationService.confirm({
+            message: 'Are you sure?',
+            accept: () => {
+                this.authService.logout()
+                location.reload();
+            }
+        });
+    }
 }

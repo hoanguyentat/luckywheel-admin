@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignModel } from '../core/models/Campaign';
 import { CampaignService } from '../services/campaign.service';
-import { MenuItem, MessageService, SelectItem } from 'primeng/api';
+import { MenuItem, MessageService, SelectItem, ConfirmationService } from 'primeng/api';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -30,13 +30,15 @@ export class CampaignComponent implements OnInit {
     private campaignService: CampaignService,
     private fb: FormBuilder, 
     private messageService: MessageService,
-    private route: Router) { }
+    private route: Router,
+    private confirmationService: ConfirmationService,
+    ) { }
 
   ngOnInit() {
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];
       this.totalCount = result['totalCount'];
-      console.log(this.campaigns)
+      // console.log(this.campaigns)
     });
 
     this.cols = [
@@ -53,7 +55,9 @@ export class CampaignComponent implements OnInit {
 
     this.campaignForm = this.fb.group({
       'name': new FormControl('', Validators.required),
-      'description': new FormControl('')
+      'description': new FormControl(''),
+      'startedAt': new FormControl(''),
+      'completedAt': new FormControl('')
     });
   }
 
@@ -65,18 +69,30 @@ export class CampaignComponent implements OnInit {
   }
 
   removeCampaign(id) {
-    this.campaignService.remove(id).subscribe(result => {
-      setTimeout( () => {
-        location.reload();
-      }, 200);
+    this.confirmationService.confirm({
+      header: 'Delete campaign',
+      message: 'Are you sure?',
+      accept: () => {
+        this.campaignService.remove(id).subscribe(result => {
+          setTimeout( () => {
+            location.reload();
+          }, 200);
+        })
+      }
     })
   }
 
   stopCampaign(id: string) {
-    this.campaignService.stop(id).subscribe(result => {
-      setTimeout( () => {
-        location.reload();
-      }, 200);
+    this.confirmationService.confirm({
+      header: 'Stop campaign',
+      message: 'Are you sure?',
+      accept: () => {
+        this.campaignService.stop(id).subscribe(result => {
+          setTimeout( () => {
+            location.reload();
+          }, 200);
+        })
+      }
     })
   }
 
@@ -89,9 +105,10 @@ export class CampaignComponent implements OnInit {
   }
 
   createCampaign(value: string) {
+    console.log(value);
     this.campaignService.create(JSON.stringify(value)).subscribe(result => {
       setTimeout( () => {
-        location.reload();
+        // location.reload();
       }, 200);
     })
     // this.submitted = true;
