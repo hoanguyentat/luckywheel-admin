@@ -105,10 +105,10 @@ export class CampaignComponent implements OnInit {
   }
 
   createCampaign(value: string) {
-    console.log(value);
+    // console.log(value);
     this.campaignService.create(JSON.stringify(value)).subscribe(result => {
       setTimeout( () => {
-        // location.reload();
+        location.reload();
       }, 200);
     })
     // this.submitted = true;
