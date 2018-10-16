@@ -20,7 +20,7 @@
     </div>
     <div class="ui-lg-8 ui-md-12">
         <div class="ui-g-12 ui-md-12">
-            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}" >
+            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th>
@@ -44,7 +44,7 @@
             </p-table>
         </div>
         <div class="ui-g-12 ui-md-12" *ngIf="subscribers">
-            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}" >
+            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}">
                 <ng-template pTemplate="caption">
                     <h3>Subscribers of campaign</h3>
                     <div class="ui-helper-clearfix">

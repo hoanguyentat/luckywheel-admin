@@ -3,6 +3,9 @@ import { SubscriberService } from '../services/subscriber.service';
 import { SubscriberModel } from '../core/models/Subscriber';
 import { MessageService } from '../services/message.service';
 import { MenuItem, SelectItem } from 'primeng/api';
+import { CampaignService } from '../services/campaign.service';
+import { CampaignModel } from '../core/models/Campaign';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-subscriber',
@@ -30,9 +33,14 @@ export class SubscriberComponent implements OnInit {
   totalCount: number;
   totalPage: number;
 
+  createdAtFilter = 2000;
+  createdAtTimeout: any;
+  campaignNames: SelectItem[];
+  discountCodes: SelectItem[];
+
   // @Output() itemsBreadrumbTest = new EventEmitter<MenuItem[]>();
 
-  constructor(private subscriberService: SubscriberService, private messageService: MessageService) { }
+  constructor(private subscriberService: SubscriberService, private messageService: MessageService, private campaignService: CampaignService) { }
 
   ngOnInit() {
     this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(result => {
@@ -61,6 +69,32 @@ export class SubscriberComponent implements OnInit {
       { field: 'discountCode', header: 'Coupon' },
       { field: 'createdAt', header: 'Created At' }
    ];
+
+    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
+      const campains = result['content'];
+      // this.campaignNames = campains.map(campaign => {
+      //   let _tmp = {
+      //     "label": campaign['name'],
+      //     "value": campaign['name']
+      //   }
+      //   return _tmp;
+      // })
+
+      this.campaignNames = this.removeDuplicates(campains, 'name').map(campaign => {
+        let _tmp = {
+          "label": campaign['name'],
+          "value": campaign['name']
+        }
+        return _tmp;
+      })
+      // console.log(this.campaignNames);
+    });
+  }
+
+  removeDuplicates(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
   }
 
   paginateSubs($event) {
@@ -92,4 +126,14 @@ export class SubscriberComponent implements OnInit {
       }
   }
 
+  onCreatedAtChange(event, dt) {
+    if (this.createdAtTimeout) {
+        clearTimeout(this.createdAtTimeout);
+    }
+    // console.log(event);
+
+    this.createdAtTimeout = setTimeout(() => {
+      dt.filter(event.value.toString(), 'createdAt', 'gt');
+    }, 250);
+  }
 }

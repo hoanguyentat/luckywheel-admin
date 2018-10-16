@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CardModule} from 'primeng/card';
-import {TableModule} from 'primeng/table';
-import {BreadcrumbModule} from 'primeng/breadcrumb';
-import { DropdownModule, TabViewModule, DataGridModule, PanelModule, DialogModule, CodeHighlighterModule, InputTextModule, ButtonModule} from 'primeng/primeng';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DropdownModule, TabViewModule, DataGridModule, PanelModule, DialogModule, CodeHighlighterModule, InputTextModule, ButtonModule, SliderModule, MultiSelectModule} from 'primeng/primeng';
 import { SubscriberService } from '../services/subscriber.service';
 import { SubscriberComponent } from './subscriber.component';
 import { SubscriberRoutingModule } from './subscriber-routing.module';
@@ -30,7 +30,10 @@ import { DetailSubscriberComponent } from './detail-subscriber/detail-subscriber
     CodeHighlighterModule,
     PanelModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    SliderModule,
+    MultiSelectModule
+
   ],
   declarations: [
     SubscriberComponent,
