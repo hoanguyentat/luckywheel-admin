@@ -3,4 +3,5 @@ export class SliceModel {
     index;
     probability;
     discountCode;
+    auto;
 }

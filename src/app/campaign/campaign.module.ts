@@ -17,7 +17,8 @@ import {
   MessageService,
   DialogModule,
   ConfirmDialogModule,
-  PaginatorModule
+  PaginatorModule,
+  CheckboxModule
 } from 'primeng/primeng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'node_modules/primeng/toast';
@@ -48,6 +49,7 @@ import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
     ConfirmDialogModule,
     PaginatorModule,
     CalendarModule,
+    CheckboxModule,
     CodeHighlighterModule
   ],
   declarations: [

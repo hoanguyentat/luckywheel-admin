@@ -108,7 +108,8 @@ export class CampaignComponent implements OnInit {
     // console.log(value);
     this.campaignService.create(JSON.stringify(value)).subscribe(result => {
       setTimeout( () => {
-        location.reload();
+        location.replace(`/#/campaign/${result['id']}/edit`);
+        // this.route.navigate[`/#/campaign/${result['id']}/edit`]
       }, 200);
     })
     // this.submitted = true;

@@ -3,6 +3,8 @@ export interface SubscriberModel {
     shopId;
     id;
     fullName;
+    campaignName;
+    discountCode;
     campaignId;
     createdAt;
 }

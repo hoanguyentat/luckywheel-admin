@@ -20,7 +20,7 @@
     </div>
     <div class="ui-lg-8 ui-md-12">
         <div class="ui-g-12 ui-md-12">
-            <p-table [columns]="colsSlice" [value]="slices">
+            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}" >
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th>
@@ -44,12 +44,12 @@
             </p-table>
         </div>
         <div class="ui-g-12 ui-md-12" *ngIf="subscribers">
-            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers">
+            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}" >
                 <ng-template pTemplate="caption">
                     <h3>Subscribers of campaign</h3>
                     <div class="ui-helper-clearfix">
-                        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
-                        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
+                        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export All" (click)="dt.exportCSV()" style="float:left"></button>
+                        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Export Selection" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>

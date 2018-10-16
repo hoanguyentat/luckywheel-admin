@@ -37,6 +37,7 @@ export class SubscriberComponent implements OnInit {
   ngOnInit() {
     this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(result => {
       this.subscribers = result['content'];
+      // console.log(result);
     });
 
     this.sortOptions = [
@@ -56,6 +57,8 @@ export class SubscriberComponent implements OnInit {
     this.cols = [
       { field: 'fullName', header: 'Full Name' },
       { field: 'email', header: 'Email' },
+      { field: 'campaignName', header: 'Campaign Name' },
+      { field: 'discountCode', header: 'Coupon' },
       { field: 'createdAt', header: 'Created At' }
    ];
   }

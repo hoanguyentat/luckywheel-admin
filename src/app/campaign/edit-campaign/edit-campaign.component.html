@@ -88,7 +88,7 @@
                             </ng-template>
                         </p-table> -->
 
-                        <p-table [columns]="colsSlice" [value]="slices" selectionMode="single" [(selection)]="selectedSlice" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+                        <p-table [columns]="colsSlice" [value]="slices" selectionMode="single" [(selection)]="selectedSlice" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}">
                             <!-- <ng-template pTemplate="caption">
                                 List of slices
                             </ng-template> -->
@@ -128,9 +128,28 @@
 
 <p-dialog header="Slice Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="slice" [style]="{'margin-bottom': '10px'}">
-        <div class="ui-grid-row" *ngFor="let col of colsSlice" style="margin-bottom: 10px;">
+        <!-- <div class="ui-grid-row" *ngFor="let col of colsSlice" style="margin-bottom: 10px;">
             <div class="ui-grid-col-4"><label for="col.field">{{col.header}}</label></div>
             <div class="ui-grid-col-8"><input pInputText id="{{col.field}}" [(ngModel)]="slice[col.field]"/></div>
+        </div> -->
+        <div class="ui-grid-row" style="margin-bottom: 10px;">
+            <div class="ui-grid-col-4"><label for="label">Label</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="label" [(ngModel)]="slice['label']"/></div>
+        </div>
+        <div class="ui-grid-row" style="margin-bottom: 10px;">
+            <div class="ui-grid-col-4"><label for="discountCode">Coupon</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="discountCode" [(ngModel)]="slice['discountCode']"/></div>
+        </div>
+        <div class="ui-grid-row" style="margin-bottom: 10px;">
+            <div class="ui-grid-col-4"><label for="autogen"></label></div>
+            <div class="ui-grid-col-8">
+                <p-checkbox [(ngModel)]="slice['auto']" binary="true"></p-checkbox>
+                Created new like this COUPON
+            </div>
+        </div>
+        <div class="ui-grid-row" style="margin-bottom: 10px;">
+            <div class="ui-grid-col-4"><label for="probability">Probability</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="probability" [(ngModel)]="slice['probability']"/></div>
         </div>
     </div>
     <p-footer>

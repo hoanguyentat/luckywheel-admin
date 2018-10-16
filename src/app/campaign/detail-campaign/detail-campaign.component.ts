@@ -38,7 +38,7 @@ export class DetailCampaignComponent implements OnInit {
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
       this.campaign = result;
       this.slices = result['slices'];
-      console.log(this.campaign);
+      // console.log(this.campaign);
     });
 
     this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe( subs => {
@@ -48,7 +48,7 @@ export class DetailCampaignComponent implements OnInit {
     })
 
     this.colsSlice = [
-        { field: 'index', header: 'Index' },
+        // { field: 'index', header: 'Index' },
         { field: 'label', header: 'Label' },
         { field: 'discountCode', header: 'Coupon' },
         { field: 'probability', header: 'Probability' },
@@ -57,6 +57,8 @@ export class DetailCampaignComponent implements OnInit {
     this.colsSub = [
       { field: 'fullName', header: 'Full Name' },
       { field: 'email', header: 'Email' },
+      { field: 'campaignName', header: 'Campaign Name' },
+      { field: 'discountCode', header: 'Coupon' },
       { field: 'createdAt', header: 'Created Time' }
     ]
 
