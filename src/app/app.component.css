@@ -43,13 +43,10 @@ ul.social li:hover a i {
     bottom: 0;
     right: 0; 
     left: 0; 
-    /* padding: 1em; */
     text-align: center; 
-    /* position: absolute; */
     height: 30px;
 }
 
 .footer, .wrapper:after {
-    /* .push must be the same height as footer */
       height: 30px; 
   }
