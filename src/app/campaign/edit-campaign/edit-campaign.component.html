@@ -2,20 +2,20 @@
     <div>{{campaignName}}</div>
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
-<div class="container" style="margin-top: 30px; min-height: 700px;">
+<div class="container" style="margin-top: 30px;">
     <div class="row">
         <div class="col-md-12">
             <!-- Nav tabs -->
             <div class="card">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab"><strong>General</strong></a></li>
-                    <li role="presentation"><a href="#slices" aria-controls="slices" role="tab" data-toggle="tab"><strong>Slices</strong></a></li>
+                    <li role="presentation"><a href="#general" aria-controls="general" role="tab" data-toggle="tab"><strong>General</strong></a></li>
+                    <li role="presentation" class="active"><a href="#slices" aria-controls="slices" role="tab" data-toggle="tab"><strong>Slices</strong></a></li>
                     <li class="text-right" style="float: right"><a (click)="updateCampaign()"><button pButton type="button" icon="fa fa-save" label="Save" class="ui-button-success"></button></a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="general">
+                    <div role="tabpanel" class="tab-pane" id="general">
                         <form [formGroup]="campaignForm" (ngSubmit)="onSubmit(campaignForm.value)">
                             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
                                 <div class="ui-grid-row">
@@ -59,7 +59,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" style="padding: 0px;" id="slices">
+                    <div role="tabpanel" class="tab-pane active" style="padding: 0px;" id="slices">
                         <!-- <p-table [value]="slices" [columns]="colsSlice">
                             <ng-template pTemplate="header" let-columns>
                                 <tr>

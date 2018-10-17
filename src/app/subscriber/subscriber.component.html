@@ -3,7 +3,7 @@
     <div>All subscribers</div>
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
-<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px; min-height: 700px;" *ngIf="subscribers != null">
+<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px;" *ngIf="subscribers">
     <!-- <p-dataView #dv [value]="subscribers" [paginator]="false" [rows]="10" paginatorPosition="both" filterBy="email" [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
@@ -81,8 +81,8 @@
     <p-table #dt [columns]="cols" [value]="subscribers" [tableStyle]="{'table-layout':'auto', 'box-shadow': '1px 2px 3px -1px rgb(0,0,0,0.3)'}" *ngIf="campaignNames">
         <ng-template pTemplate="caption">
             <div style="text-align: right">        
-                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                <input type="text" pInputText size="50" placeholder="Search in all fields" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <i class="fa fa-search" style="margin:4px 10px 0 0; font-size: 19px;"></i>
+                <input type="text" pInputText size="30" placeholder="Search in all fields" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -124,4 +124,10 @@
     <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginateSubs($event)"></p-paginator>
 </div>
 
+<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px; min-height: 700px;" *ngIf="!subscribers">
+    <div class="middle-box text-center loginscreen" style="padding: 155px; min-height: 820px;">
+        <div class="alert alert-info" role="alert">You don't have any subscribers.
+        </div>
+    </div>
+</div>
     

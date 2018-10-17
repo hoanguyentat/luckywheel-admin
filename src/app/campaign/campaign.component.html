@@ -3,7 +3,7 @@
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
-<div class="ui-g" style="padding: 30px; min-height: 800px;">
+<div class="ui-g" style="padding: 30px;">
     <div class="ui-md-12 ui-lg-4">   
         <form [formGroup]="campaignForm" (ngSubmit)="createCampaign(campaignForm.value)">
             <p-panel header="Quick Campaign" [style]= "{'font-style': 'bold'}">
@@ -57,8 +57,8 @@
         </form>
     </div>
     <div class="ui-lg-8 ui-md-12" *ngIf="campaigns">
-       <div class="row" style="min-height: 750px;"> 
-            <div class="blog-card" *ngFor="let campaign of campaigns" style="min-height: 150px;">
+       <div class="row" style="min-height: 800px;"> 
+            <div class="blog-card" *ngFor="let campaign of campaigns" style="min-height: 130px;">
                 <div class="meta">
                     <div class="photo" style="background-image: url(https://go.indiegogo.com/wp-content/uploads/2017/04/IGG_blogheader_April2017_FlashSale.png)"></div>
                     <ul class="details">

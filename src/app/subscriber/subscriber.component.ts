@@ -72,13 +72,6 @@ export class SubscriberComponent implements OnInit {
 
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       const campains = result['content'];
-      // this.campaignNames = campains.map(campaign => {
-      //   let _tmp = {
-      //     "label": campaign['name'],
-      //     "value": campaign['name']
-      //   }
-      //   return _tmp;
-      // })
 
       this.campaignNames = this.removeDuplicates(campains, 'name').map(campaign => {
         let _tmp = {

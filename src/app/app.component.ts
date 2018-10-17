@@ -71,7 +71,6 @@ export class AppComponent {
         // }
     ];
 
-    // this.itemsBreadrumb = $event;
   }
 
 

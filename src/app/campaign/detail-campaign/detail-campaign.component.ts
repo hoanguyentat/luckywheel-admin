@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment.prod';
 import { SubscriberModel } from '../../core/models/Subscriber';
 import { SubscriberService } from '../../services/subscriber.service';
 import { SliceModel } from '../../core/models/Slice';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-detail-campaign',
@@ -29,7 +30,7 @@ export class DetailCampaignComponent implements OnInit {
   pageSizeSubs = 10;
 
   selectedSubscribers: SubscriberModel[];
-  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute) { }
+  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute, private messageService: MessageService) { }
 
   ngOnInit() {
 
@@ -38,11 +39,13 @@ export class DetailCampaignComponent implements OnInit {
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
       this.campaign = result;
       this.slices = result['slices'];
-      // console.log(this.campaign);
+      console.log(this.slices);
+      if(!this.slices) {
+        this.messageService.warning("You should setup your spinner slices to continue");
+      }
     });
 
     this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe( subs => {
-      // console.log(subs);
       this.totalSubs = subs['totalCount'];
       this.subscribers = subs['content'];
     })
