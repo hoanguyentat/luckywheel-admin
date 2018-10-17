@@ -1,6 +1,7 @@
 .nav-tabs { 
     /* border-bottom: 1px solid #DDD;  */
     padding: 10px;
+    border: 0px solid #ddd;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
 .nav-tabs > li > a { border: none; color: #666; }

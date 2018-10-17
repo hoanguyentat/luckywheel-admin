@@ -39,7 +39,7 @@ import AuthGuard from './_guards/auth.guard';
     HttpClientModule,
     // DataViewModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       closeButton: true
     }),
     CoreModule,

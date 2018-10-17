@@ -2,8 +2,8 @@
     <div *ngIf="campaign">{{campaign.name}}</div>
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
-<div class="ui-g" style="padding: 30px;" *ngIf="campaign">
-    <div class="ui-sm-12 ui-md-4 ui-lg-3">   
+<div class="ui-g" *ngIf="campaign">
+    <div class="ui-sm-12 ui-md-4 ui-lg-3 ui-lg-offset-1">   
         <p-card title="{{campaign.name | uppercase}}" subtitle="Description" styleClass="ui-card-shadow">
             <p-header>
                 <img src="https://mybroadband.co.za/news/wp-content/uploads/2016/11/Black-Friday-shopping-survival.jpg">
@@ -18,7 +18,7 @@
             </p-footer>
         </p-card>
     </div>
-    <div class="ui-sm-12 ui-md-8 ui-lg-9">
+    <div class="ui-sm-12 ui-md-8 ui-lg-7">
         <div class="ui-grid-row" style="margin-bottom: 15px;">
             <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}">
                 <ng-template pTemplate="header" let-columns>

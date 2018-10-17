@@ -1,7 +1,8 @@
 :host >>> .ui-menubar {
     /* padding: 10px 10px !important; */
-    background-color: #ffffff;
+    background-color: #1b2740;
     border: 1px solid #c8c8c8 !important;
+    border-radius: 0px;
 }
 
 :host >>> .ui-breadcrumb {
@@ -24,6 +25,10 @@ ul.social li:hover a i {
     color: #fff;
 }
 
+:host >>> .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > span {
+    color: white;
+}
+
 :host >>> .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link:hover > span {
     /* background-color: #007ad9; */
     color: #fff;
@@ -32,6 +37,7 @@ ul.social li:hover a i {
 :host >>> .wrapper { 
     margin-bottom: -30px;
     min-height: 100vh;
+    background-color: #f9f9fb;
  }
 
  :host >>> .wrapper:after {

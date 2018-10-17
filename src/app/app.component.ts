@@ -31,6 +31,12 @@ export class AppComponent {
 
   ngOnInit() {
     
+    if(sessionStorage.getItem('jwt_token')) {
+        this.userStatus = true;
+    } else {
+        this.userStatus = false;
+    }
+
     this.itemsMenu = [
         {
             label: 'Home',
