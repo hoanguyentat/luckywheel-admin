@@ -1,5 +1,17 @@
-:host >>> body .ui-paginator {
-    /* background-color: #f4f4f4; */
-    /* border: 1px solid #c8c8c8; */
-    padding: 0;
+:host >>> .ui-table .ui-table-caption, body .ui-table .ui-table-summary {
+    background-color: #f9f9fb;
+    color: #f30000;
+    border: 0px solid #c8c8c8;
+    padding: 0.571em 1em;
+    font-style: bold;
+    font-family: fantasy;
+    text-align: center;
+}
+
+:host >>> .ui-table .ui-table-thead > tr > th {
+    padding: 0.571em 0.857em;
+    border: 1px solid #007ad9;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #007ad9;
 }
