@@ -123,7 +123,6 @@ export class SubscriberComponent implements OnInit {
     if (this.createdAtTimeout) {
         clearTimeout(this.createdAtTimeout);
     }
-    // console.log(event);
 
     this.createdAtTimeout = setTimeout(() => {
       dt.filter(event.value.toString(), 'createdAt', 'gt');
