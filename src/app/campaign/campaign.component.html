@@ -57,10 +57,10 @@
         </form>
     </div>
     <div class="ui-lg-6 ui-md-12 ui-sm-12" *ngIf="campaigns">
-       <div class="row" style="min-height: 800px;"> 
-            <div class="blog-card" *ngFor="let campaign of campaigns" style="min-height: 130px;">
+       <div class="row" style="min-height: 700px;"> 
+            <div class="blog-card" *ngFor="let campaign of campaigns" style="min-height: 120px;">
                 <div class="meta">
-                    <div class="photo" style="background-image: url(https://go.indiegogo.com/wp-content/uploads/2017/04/IGG_blogheader_April2017_FlashSale.png)"></div>
+                    <div class="photo" style="background-image: url(assets/images/campaign_background.JPG)"></div>
                     <ul class="details">
                         <li *ngIf="campaign.startedAt" class="date">Start: {{campaign.startedAt | date: "dd-MM-yyyy"}}</li>
                         <li *ngIf="!campaign.startedAt" class="date">Start by click <b>active</b> button</li>
@@ -87,5 +87,12 @@
             </div>
        </div>
        <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
+
+    <div class="ui-lg-6 ui-md-12 ui-sm-12" *ngIf="!campaigns">
+        <div class="middle-box text-center loginscreen" style="padding: 155px;">
+            <div class="alert alert-info" role="alert">You have not campaign!
+            </div>
+        </div>
     </div>
 </div>

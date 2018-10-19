@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
+import { MyMessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorsService {
 
-  constructor(private toastr: ToastrService, private messageService: MessageService) { }
+  constructor(private toastr: ToastrService, private messageService: MyMessageService) { }
 
   public log(message: string) {
     this.messageService.error(`${message}`);

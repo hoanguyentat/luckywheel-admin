@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SubscriberService } from '../services/subscriber.service';
 import { SubscriberModel } from '../core/models/Subscriber';
-import { MessageService } from '../services/message.service';
+import { MyMessageService } from '../services/message.service';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { CampaignService } from '../services/campaign.service';
 import { CampaignModel } from '../core/models/Campaign';
@@ -40,7 +40,7 @@ export class SubscriberComponent implements OnInit {
 
   // @Output() itemsBreadrumbTest = new EventEmitter<MenuItem[]>();
 
-  constructor(private subscriberService: SubscriberService, private messageService: MessageService, private campaignService: CampaignService) { }
+  constructor(private subscriberService: SubscriberService, private messageService: MyMessageService, private campaignService: CampaignService) { }
 
   ngOnInit() {
     this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(result => {
@@ -67,7 +67,7 @@ export class SubscriberComponent implements OnInit {
       { field: 'email', header: 'Email' },
       { field: 'campaignName', header: 'Campaign Name' },
       { field: 'discountCode', header: 'Coupon' },
-      { field: 'createdAt', header: 'Created At' }
+      // { field: 'createdAt', header: 'Created At' }
    ];
 
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {

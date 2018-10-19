@@ -2,7 +2,9 @@
     <p-confirmDialog header="Logout" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
     <p-menubar [model]="itemsMenu" [autoDisplay]="false">
         <!-- <a *ngIf="!userStatus" href="/#/login" style="cursor: pointer;"> Login</a> -->
-        <a *ngIf="userStatus" (click)="logout()" style="cursor: pointer;"><i class="fa fa-sign-out" style="padding: 19px; color: white;"> Logout</i></a>
+        <div style=" padding: 19px; color: white;">
+            <a *ngIf="userStatus" (click)="logout()" style="cursor: pointer; padding: 19px; color: white; text-decoration: none; font-family: 'Open Sans', 'Helvetica Neue', 'sans-serif';"><i class="fa fa-sign-out"> </i> Logout</a>
+        </div>
     </p-menubar>
 
     <router-outlet></router-outlet>

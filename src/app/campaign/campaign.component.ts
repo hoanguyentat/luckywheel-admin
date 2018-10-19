@@ -4,6 +4,7 @@ import { CampaignService } from '../services/campaign.service';
 import { MenuItem, MessageService, SelectItem, ConfirmationService } from 'primeng/api';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
+import { MyMessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-campaign',
@@ -30,6 +31,7 @@ export class CampaignComponent implements OnInit {
     private campaignService: CampaignService,
     private fb: FormBuilder, 
     private messageService: MessageService,
+    private myMessService: MyMessageService,
     private route: Router,
     private confirmationService: ConfirmationService,
     ) { }
@@ -39,6 +41,9 @@ export class CampaignComponent implements OnInit {
       this.campaigns = result['content'];
       this.totalCount = result['totalCount'];
       // console.log(this.campaigns)
+      if(!this.campaigns) {
+        this.myMessService.warning("You should create new campaign to continue")
+      }
     });
 
     this.cols = [

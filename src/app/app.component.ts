@@ -3,7 +3,7 @@ import {MenuItem, ConfirmationService} from 'primeng/api';
 import { AuthenticationService } from './services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MessageService } from './services/message.service';
+import { MyMessageService } from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent {
     private authService: AuthenticationService, 
     private router: Router, 
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MyMessageService
     ) {
         // received a param from other component
         this.subscription = this.messageService.getMessage().subscribe(message => { 

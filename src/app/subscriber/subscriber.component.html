@@ -78,6 +78,7 @@
         </div>
     </p-dialog> -->
 
+    
     <p-table #dt [columns]="cols" [value]="subscribers" [tableStyle]="{'table-layout':'auto', 'box-shadow': '1px 2px 3px -1px rgb(0,0,0,0.3)'}" *ngIf="campaignNames">
         <ng-template pTemplate="caption">
             <div style="text-align: right">        
@@ -93,13 +94,15 @@
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
+                <th>
+                    Created At
+                </th>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th></th>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
                     <input *ngSwitchCase="'fullName'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     <input *ngSwitchCase="'email'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                    <!-- <p-dropdown *ngSwitchCase="'campaignName'" [options]="campaignNames" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown> -->
                     <p-multiSelect *ngSwitchCase="'campaignName'" [style]="{'width':'100%'}" [options]="campaignNames" defaultLabel="All Campaigns" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
                     <input *ngSwitchCase="'discountCode'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     <div *ngSwitchCase="'createdAt'">
@@ -108,7 +111,7 @@
                         <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="createdAtFilter" [min]="2000" [max]="2050" (onChange)="onCreatedAtChange($event, dt)"></p-slider>
                     </div>
                 </th>
-            </tr>
+            </tr> -->
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
             <tr [pSelectableRow]="rowData">
@@ -117,6 +120,9 @@
                 </td>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
+                </td>
+                <td>
+                    {{rowData['createdAt'] | date: "dd-MM-yyyy"}}
                 </td>
             </tr>
         </ng-template>

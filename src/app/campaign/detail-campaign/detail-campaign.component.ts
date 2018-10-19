@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment.prod';
 import { SubscriberModel } from '../../core/models/Subscriber';
 import { SubscriberService } from '../../services/subscriber.service';
 import { SliceModel } from '../../core/models/Slice';
-import { MessageService } from '../../services/message.service';
+import { MyMessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-detail-campaign',
@@ -30,7 +30,7 @@ export class DetailCampaignComponent implements OnInit {
   pageSizeSubs = 10;
 
   selectedSubscribers: SubscriberModel[];
-  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute, private messageService: MessageService) { }
+  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute, private messageService: MyMessageService) { }
 
   ngOnInit() {
 

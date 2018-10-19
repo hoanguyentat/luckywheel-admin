@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { MessageService } from '../services/message.service';
+import { MyMessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   jwtToken: string;
   domain = environment.domain;
-  constructor(private activedRoute: ActivatedRoute, private route: Router, private messageService: MessageService) { }
+  constructor(private activedRoute: ActivatedRoute, private route: Router, private messageService: MyMessageService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem('jwt_token')) {

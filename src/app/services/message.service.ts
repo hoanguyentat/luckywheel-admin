@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MessageService {
+export class MyMessageService {
 
   private subject = new Subject<any>();
 

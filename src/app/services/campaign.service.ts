@@ -4,7 +4,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { CampaignModel } from '../core/models/Campaign';
 import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
+import { MyMessageService } from './message.service';
 import { ErrorsService } from './errors.service';
 import { environment } from '../../environments/environment';
 import { SubscriberModel } from '../core/models/Subscriber';
@@ -13,7 +13,7 @@ import { SubscriberModel } from '../core/models/Subscriber';
 export class CampaignService {
 
     urlDomain = environment.domain;
-    constructor(private http: HttpClient, private messageService: MessageService, private errorsService: ErrorsService) {}
+    constructor(private http: HttpClient, private messageService: MyMessageService, private errorsService: ErrorsService) {}
 
     getList(page: number, size: number): Observable<CampaignModel[]> {
         // let urlCamps = '/assets/data/cars-small.json';
