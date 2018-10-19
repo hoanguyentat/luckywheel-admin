@@ -7,8 +7,8 @@
                 <div class="form-group">
                     <label for="token">Token</label>
                     <input type="token" formControlName="token" class="form-control" [ngClass]="{ 'is-invalid': submitted && fControll.token.errors }" />
-                    <div *ngIf="submitted && fControll.token.errors" class="invalid-feedback">
-                        <div *ngIf="fControll.token.errors.required">Token is required</div>
+                    <div *ngIf="submitted && fControll['token'].errors" class="invalid-feedback">
+                        <div *ngIf="fControll['token'].errors.required">Token is required</div>
                     </div>
                 </div>
                 <div class="form-group">

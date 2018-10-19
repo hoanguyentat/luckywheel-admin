@@ -63,7 +63,7 @@ export class EditCampaignComponent implements OnInit {
     this.colsSlice = [
       // { field: 'index', header: 'Index' },
       { field: 'label', header: 'Label' },
-      { field: 'discountCode', header: 'Coupon' },
+      { field: 'discountCode', header: 'Discount Code' },
       { field: 'probability', header: 'Probability' },
     ];
 

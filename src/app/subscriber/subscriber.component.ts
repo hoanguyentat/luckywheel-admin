@@ -6,6 +6,7 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { CampaignService } from '../services/campaign.service';
 import { CampaignModel } from '../core/models/Campaign';
 import { forEach } from '@angular/router/src/utils/collection';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-subscriber',
@@ -35,16 +36,27 @@ export class SubscriberComponent implements OnInit {
 
   createdAtFilter = 2000;
   createdAtTimeout: any;
+  campaigns: CampaignModel[];
   campaignNames: SelectItem[];
   discountCodes: SelectItem[];
 
+
+  searchForm: FormGroup;
   // @Output() itemsBreadrumbTest = new EventEmitter<MenuItem[]>();
 
-  constructor(private subscriberService: SubscriberService, private messageService: MyMessageService, private campaignService: CampaignService) { }
+  constructor(private subscriberService: SubscriberService, 
+    private messageService: MyMessageService, 
+    private campaignService: CampaignService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(result => {
+    let data = {
+      "page": this.currentPage,
+      "size": this.pageSize
+    }
+    this.subscriberService.getSubscribers(data).subscribe(result => {
       this.subscribers = result['content'];
+      this.totalCount = result['totalCount'];
       // console.log(result);
     });
 
@@ -60,28 +72,49 @@ export class SubscriberComponent implements OnInit {
       {label:'Subscriber', url: '/#/subscriber'}
     ]
 
-    // this.itemsBreadrumbTest.emit(this.itemsBreadrumb)
+    this.searchForm = this.fb.group({
+      'email': new FormControl('', Validators.email),
+      'name': new FormControl(''),
+      'campaignId': new FormControl('')
+    });
 
     this.cols = [
       { field: 'fullName', header: 'Full Name' },
       { field: 'email', header: 'Email' },
       { field: 'campaignName', header: 'Campaign Name' },
-      { field: 'discountCode', header: 'Coupon' },
+      { field: 'discountCode', header: 'Discount Code' },
       // { field: 'createdAt', header: 'Created At' }
    ];
 
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
-      const campains = result['content'];
+      this.campaigns = result['content'];
 
-      this.campaignNames = this.removeDuplicates(campains, 'name').map(campaign => {
+      this.campaignNames = this.removeDuplicates(this.campaigns, 'name')
+      .map(campaign => {
         let _tmp = {
           "label": campaign['name'],
-          "value": campaign['name']
+          "value": campaign['name'],
+          "id": campaign['id']
         }
         return _tmp;
       })
-      // console.log(this.campaignNames);
     });
+  }
+
+
+  searchSubscribers(data): void {
+    this.currentPage = 1;
+    // this.pageSize = 20;
+    data['page'] = this.currentPage;
+    data['size']= this.pageSize;
+    this.subscriberService.getSubscribers(data).subscribe(result => {
+      this.subscribers = result['content'];
+      this.totalCount = result['totalCount'];
+    });
+  }
+
+  getErrorMessage() {
+    
   }
 
   removeDuplicates(myArr, prop) {
@@ -92,8 +125,14 @@ export class SubscriberComponent implements OnInit {
 
   paginateSubs($event) {
     this.currentPage = $event.page + 1;
-    this.subscriberService.getSubscribers(this.currentPage, this.pageSize).subscribe(subs => {
+    let data = this.searchForm.value;
+    data["page"]= this.currentPage,
+    data["size"]= this.pageSize;
+
+    this.subscriberService.getSubscribers(data).subscribe(subs => {
+      // console.log(subs['content']);
       this.subscribers = subs['content'];
+      this.totalCount = subs['totalCount'];
     });
   }
 

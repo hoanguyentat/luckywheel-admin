@@ -39,7 +39,7 @@ export class DetailCampaignComponent implements OnInit {
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
       this.campaign = result;
       this.slices = result['slices'];
-      console.log(this.slices);
+      // console.log(this.slices);
       if(!this.slices) {
         this.messageService.warning("You should setup your spinner slices to continue");
       }
@@ -53,7 +53,7 @@ export class DetailCampaignComponent implements OnInit {
     this.colsSlice = [
         // { field: 'index', header: 'Index' },
         { field: 'label', header: 'Label' },
-        { field: 'discountCode', header: 'Coupon' },
+        { field: 'discountCode', header: 'Discount Code' },
         { field: 'probability', header: 'Probability' },
     ];
 

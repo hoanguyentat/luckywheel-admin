@@ -79,6 +79,50 @@
     </p-dialog> -->
 
     
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="true" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <!-- Subscrbers data -->
+                    <strong><h4>Find your subscribers</h4></strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <strong> </strong>
+                    <mat-icon>group_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <!-- <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)"> -->
+            <div class="ui-g">
+                <div class="ui-g-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Full name" [formControl] = "searchForm.controls['name']">
+                    </mat-form-field>
+                </div>
+                <div class="ui-g-3">
+                    <mat-form-field>
+                        <input matInput type="email" placeholder="Email" [formControl] = "searchForm.controls['email']">
+                    </mat-form-field>
+                </div>
+                <div class="ui-g-3">
+                    <mat-form-field>
+                        <mat-select placeholder="Campaigns" multiple [formControl] = "searchForm.controls['campaignId']"> 
+                            <mat-option *ngFor="let campaign of campaigns" [value]="campaign.id">{{campaign.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="ui-g-3" style="text-align: right;">
+                    <button class="btn btn-success" (click)="searchSubscribers(searchForm.value)">SEARCH</button>
+                </div>
+            </div>
+            <!-- </form> -->
+            <mat-action-row>
+            
+            </mat-action-row>
+        </mat-expansion-panel>        
+    </mat-accordion>
+    <div style="margin-top: 25px;"></div>     
+
     <p-table #dt [columns]="cols" [value]="subscribers" [tableStyle]="{'table-layout':'auto', 'box-shadow': '1px 2px 3px -1px rgb(0,0,0,0.3)'}" *ngIf="campaignNames">
         <ng-template pTemplate="caption">
             <div style="text-align: right">        
@@ -91,10 +135,11 @@
                 <th>
                     #
                 </th>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns"  [pSortableColumn]="col.field">
                     {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                 </th>
-                <th>
+                <th  [pSortableColumn]>
                     Created At
                 </th>
             </tr>
