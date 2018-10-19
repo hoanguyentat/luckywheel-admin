@@ -71,7 +71,8 @@
                 <div class="description">
                 <h1>{{campaign.name | uppercase}}</h1>
                     <p>
-                        {{campaign.description}}
+                        <!-- {{campaign.description}} -->
+                        {{ (campaign.description.length>50)? (campaign.description | slice:0:50)+'...':(campaign.description) }}
                     </p>
                     <ul class="list-inline">
                         <li><a href="/#/campaign/{{campaign.id}}/edit"><span class="glyphicon glyphicon-pencil"> Edit</span></a></li> | 
