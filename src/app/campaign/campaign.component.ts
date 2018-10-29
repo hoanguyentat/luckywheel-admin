@@ -40,7 +40,7 @@ export class CampaignComponent implements OnInit {
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];
       this.totalCount = result['totalCount'];
-      // console.log(this.campaigns)
+      console.log(this.campaigns)
       if(!this.campaigns) {
         this.myMessService.warning("You should create new campaign to continue")
       }
@@ -109,8 +109,13 @@ export class CampaignComponent implements OnInit {
     })
   }
 
-  createCampaign(value: string) {
-    // console.log(value);
+  createCampaign(value: JSON) {
+    for(let key of Object.keys(value)) {
+      if(value[key] == "") {
+        value[key] = null;
+      }
+    }
+    console.log(value)
     this.campaignService.create(JSON.stringify(value)).subscribe(result => {
       setTimeout( () => {
         location.replace(`/#/campaign/${result['id']}/edit`);

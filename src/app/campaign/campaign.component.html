@@ -69,8 +69,8 @@
                     </ul>
                 </div>
                 <div class="description">
-                <h1>{{campaign.name | uppercase}}</h1>
-                    <p>
+                <h1>{{campaign?.name | uppercase}}</h1>
+                    <p *ngIf="campaign.description">
                         <!-- {{campaign.description}} -->
                         {{ (campaign.description.length>50)? (campaign.description | slice:0:50)+'...':(campaign.description) }}
                     </p>
