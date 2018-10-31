@@ -47,7 +47,6 @@ export class EditCampaignComponent implements OnInit {
     });
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
-      // console.log(result);
       this.campaignName = result['name'];
       this.campaignForm.setValue({
         "name": result['name'],
@@ -123,9 +122,11 @@ export class EditCampaignComponent implements OnInit {
     let data = {
       "name": this.campaignForm.value['name'],
       "description": this.campaignForm.value['description'],
-      "slices": this.slices
+      "slices": this.slices,
+      "startedAt": this.campaignForm.value['startedAt'],
+      "completedAt": this.campaignForm.value['completedAt'],
     }
-    console.log(data);
+    // console.log(data);
 
     this.campaignService.update(this.campaignId, data).subscribe(res => {  
       if(res) {
