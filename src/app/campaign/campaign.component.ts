@@ -73,31 +73,28 @@ export class CampaignComponent implements OnInit {
     // Subscribe for event campaign change
 
     this.campaignService.onCampaignAdded
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(newCampaign => {
-        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === newCampaign.id);
-        this.campaigns.splice(campaignIndex, 1);
-        this.campaigns.unshift(newCampaign);
-    });
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(newCampaign => {
+          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === newCampaign.id);
+          this.campaigns.splice(campaignIndex, 1);
+          this.campaigns.splice(campaignIndex, 0, newCampaign);
+      });
 
     this.campaignService.onCampaignUpdated
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(updatedCampaign => {
-        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === updatedCampaign.id);
-        this.campaigns.splice(campaignIndex, 1);
-        this.campaigns.unshift(updatedCampaign);
-    });
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(updatedCampaign => {
+          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === updatedCampaign.id);
+          this.campaigns.splice(campaignIndex, 1);
+          this.campaigns.splice(campaignIndex, 0, updatedCampaign);
+      });
 
     this.campaignService.onCampaignDeleted
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(campaignId => {
-      // console.log(campaignId)
-        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
-        // console.log(campaignIndex)
-        this.campaigns.splice(campaignIndex, 1);
-        // update number of campaign;
-        this.totalCount = this.totalCount - 1;
-    });
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(campaignId => {
+          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
+          this.campaigns.splice(campaignIndex, 1);
+          this.totalCount = this.totalCount - 1;
+      });
   }
 
   paginate($event) {
@@ -113,7 +110,6 @@ export class CampaignComponent implements OnInit {
       message: 'Are you sure?',
       accept: () => {
         this.campaignService.remove(id).subscribe(res => {
-          // console.log(res)
           this.campaignService.onCampaignDeleted.next(id);
         }, err => {
           console.log("Delete error");
@@ -128,7 +124,6 @@ export class CampaignComponent implements OnInit {
       message: 'Are you sure?',
       accept: () => {
         this.campaignService.stop(id).subscribe(result => {
-          // console.log(result)
           this.campaignService.onCampaignUpdated.next(result);
         })
       }
@@ -137,7 +132,6 @@ export class CampaignComponent implements OnInit {
 
   activeCampaign(id: string) {
     this.campaignService.active(id).subscribe(result => {
-      // console.log(result);
       this.campaignService.onCampaignUpdated.next(result);
     })
   }

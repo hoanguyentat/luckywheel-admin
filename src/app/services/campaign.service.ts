@@ -76,7 +76,7 @@ export class CampaignService {
 
     active(id: string):  Observable<CampaignModel> {
         let url = `${this.baseUrl}/campaigns/${id}/activate`;
-        console.log(url);
+        // console.log(url);
         return this.http.post<CampaignModel>(url, {}).pipe(
             tap(_campaign => {this.messageService.info("Activated campaign!")}),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
