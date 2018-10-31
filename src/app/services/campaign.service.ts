@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { CampaignModel } from '../core/models/Campaign';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { MyMessageService } from './message.service';
 import { ErrorsService } from './errors.service';
 import { environment } from '../../environments/environment';
@@ -12,12 +12,26 @@ import { SubscriberModel } from '../core/models/Subscriber';
 @Injectable()
 export class CampaignService {
 
-    urlDomain = environment.domain;
-    constructor(private http: HttpClient, private messageService: MyMessageService, private errorsService: ErrorsService) {}
+    baseUrl = environment.domain;
+
+    onCampaignAdded  : BehaviorSubject<CampaignModel>;
+    onCampaignUpdated: BehaviorSubject<CampaignModel>;
+    onCampaignDeleted: BehaviorSubject<any>;
+
+    constructor(
+        private http: HttpClient, 
+        private messageService: MyMessageService, 
+        private errorsService: ErrorsService
+    ) {
+        this.onCampaignAdded = new BehaviorSubject(new CampaignModel({}));
+        this.onCampaignUpdated = new BehaviorSubject(new CampaignModel({}));
+        this.onCampaignDeleted = new BehaviorSubject({});
+
+    }
 
     getList(page: number, size: number): Observable<CampaignModel[]> {
         // let urlCamps = '/assets/data/cars-small.json';
-        let urlCamps = `${this.urlDomain}/campaigns?page=${page}&size=${size}`;
+        let urlCamps = `${this.baseUrl}/campaigns?page=${page}&size=${size}`;
         return this.http.get<CampaignModel[]>(urlCamps)
             .pipe(
                 tap(_campaigns => {}),
@@ -27,7 +41,7 @@ export class CampaignService {
 
     getDetail(id: string): Observable<CampaignModel> {
         // let urlDetail = '/assets/data/cars-small.json'
-        let urlDetail = `${this.urlDomain}/campaigns/${id}`;      
+        let urlDetail = `${this.baseUrl}/campaigns/${id}`;      
         return this.http.get<CampaignModel>(urlDetail)
         .pipe(
             tap(_campaign => {}),
@@ -36,7 +50,7 @@ export class CampaignService {
     }
 
     getSubscribers(campaignId: string, page: number, size: number): Observable<SubscriberModel[]> {
-        let url = `${this.urlDomain}/subscribers?campaignId=${campaignId}&page=${page}&size=${size}`;      
+        let url = `${this.baseUrl}/subscribers?campaignId=${campaignId}&page=${page}&size=${size}`;      
         return this.http.get<SubscriberModel[]>(url)
         .pipe(
             tap(_campaign => {}),
@@ -45,7 +59,7 @@ export class CampaignService {
     }
 
     create(data): Observable<CampaignModel> {
-        let url = `${this.urlDomain}/campaigns`;
+        let url = `${this.baseUrl}/campaigns`;
         return this.http.post<CampaignModel>(url, data).pipe(
             tap(_campaign => {this.messageService.info("Created campaign!")}),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
@@ -53,8 +67,7 @@ export class CampaignService {
     }
 
     stop(id: string): Observable<CampaignModel> {
-        let url = `${this.urlDomain}/campaigns/${id}/deactivate`;
-        // console.log(url);
+        let url = `${this.baseUrl}/campaigns/${id}/deactivate`;
         return this.http.post<CampaignModel>(url, {}).pipe(
             tap(_campaign => {this.messageService.info("Stopped campaign!")}),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
@@ -62,7 +75,7 @@ export class CampaignService {
     }
 
     active(id: string):  Observable<CampaignModel> {
-        let url = `${this.urlDomain}/campaigns/${id}/activate`;
+        let url = `${this.baseUrl}/campaigns/${id}/activate`;
         console.log(url);
         return this.http.post<CampaignModel>(url, {}).pipe(
             tap(_campaign => {this.messageService.info("Activated campaign!")}),
@@ -71,7 +84,7 @@ export class CampaignService {
     }
 
     update(id: string, data: any) {
-        let url = `${this.urlDomain}/campaigns/${id}`;
+        let url = `${this.baseUrl}/campaigns/${id}`;
         return this.http.patch<CampaignModel>(url, data).pipe(
             tap(_campaign => {this.messageService.info("Updated campaign!")}),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
@@ -79,7 +92,7 @@ export class CampaignService {
     }
 
     remove(id: string): Observable<CampaignModel> {
-        let url = `${this.urlDomain}/campaigns/${id}`;
+        let url = `${this.baseUrl}/campaigns/${id}`;
         return this.http.delete<CampaignModel>(url).pipe(
             tap(_campaign => {this.messageService.info("Deleted campaign!")}),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))

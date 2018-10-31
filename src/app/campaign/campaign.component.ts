@@ -5,6 +5,8 @@ import { MenuItem, MessageService, SelectItem, ConfirmationService } from 'prime
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MyMessageService } from '../services/message.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-campaign',
@@ -21,9 +23,10 @@ export class CampaignComponent implements OnInit {
   totalCount: number;
   currentPage = 1;
   pageSize = 5;
+  _unsubscribeAll: Subject<any>
 
 
-  campaigns: CampaignModel[];
+  campaigns: CampaignModel[] = [];
   cols: any[];
   itemsBreadrumb: MenuItem[];
 
@@ -34,13 +37,15 @@ export class CampaignComponent implements OnInit {
     private myMessService: MyMessageService,
     private route: Router,
     private confirmationService: ConfirmationService,
-    ) { }
+    ) { 
+      this._unsubscribeAll = new Subject();
+    }
 
   ngOnInit() {
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];
       this.totalCount = result['totalCount'];
-      console.log(this.campaigns)
+      // console.log(this.campaigns)
       if(!this.campaigns) {
         this.myMessService.warning("You should create new campaign to continue")
       }
@@ -64,6 +69,35 @@ export class CampaignComponent implements OnInit {
       'startedAt': new FormControl(''),
       'completedAt': new FormControl('')
     });
+
+    // Subscribe for event campaign change
+
+    this.campaignService.onCampaignAdded
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe(newCampaign => {
+        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === newCampaign.id);
+        this.campaigns.splice(campaignIndex, 1);
+        this.campaigns.unshift(newCampaign);
+    });
+
+    this.campaignService.onCampaignUpdated
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe(updatedCampaign => {
+        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === updatedCampaign.id);
+        this.campaigns.splice(campaignIndex, 1);
+        this.campaigns.unshift(updatedCampaign);
+    });
+
+    this.campaignService.onCampaignDeleted
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe(campaignId => {
+      // console.log(campaignId)
+        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
+        // console.log(campaignIndex)
+        this.campaigns.splice(campaignIndex, 1);
+        // update number of campaign;
+        this.totalCount = this.totalCount - 1;
+    });
   }
 
   paginate($event) {
@@ -78,10 +112,11 @@ export class CampaignComponent implements OnInit {
       header: 'Delete campaign',
       message: 'Are you sure?',
       accept: () => {
-        this.campaignService.remove(id).subscribe(result => {
-          setTimeout( () => {
-            location.reload();
-          }, 200);
+        this.campaignService.remove(id).subscribe(res => {
+          // console.log(res)
+          this.campaignService.onCampaignDeleted.next(id);
+        }, err => {
+          console.log("Delete error");
         })
       }
     })
@@ -93,9 +128,8 @@ export class CampaignComponent implements OnInit {
       message: 'Are you sure?',
       accept: () => {
         this.campaignService.stop(id).subscribe(result => {
-          setTimeout( () => {
-            location.reload();
-          }, 200);
+          // console.log(result)
+          this.campaignService.onCampaignUpdated.next(result);
         })
       }
     })
@@ -103,9 +137,8 @@ export class CampaignComponent implements OnInit {
 
   activeCampaign(id: string) {
     this.campaignService.active(id).subscribe(result => {
-      setTimeout( () => {
-        location.reload();
-      }, 200);
+      // console.log(result);
+      this.campaignService.onCampaignUpdated.next(result);
     })
   }
 
@@ -115,14 +148,12 @@ export class CampaignComponent implements OnInit {
         value[key] = null;
       }
     }
-    console.log(value)
     this.campaignService.create(JSON.stringify(value)).subscribe(result => {
       setTimeout( () => {
         location.replace(`/#/campaign/${result['id']}/edit`);
         // this.route.navigate[`/#/campaign/${result['id']}/edit`]
       }, 200);
     })
-    // this.submitted = true;
   }
 
   get diagnostic() { return JSON.stringify(this.campaignForm.value); }

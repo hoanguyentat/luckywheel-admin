@@ -76,7 +76,7 @@ export class EditCampaignComponent implements OnInit {
 
   showDialogToAdd() {
     this.newSlice = true;
-    this.slice = new SliceModel;
+    this.slice = new SliceModel({});
     this.displayDialog = true;
   }
 
@@ -112,7 +112,7 @@ export class EditCampaignComponent implements OnInit {
   }
 
   cloneSlice(slice: SliceModel): SliceModel {
-    let cslice= new SliceModel();
+    let cslice= new SliceModel({});
     for (let prop in slice) {
         cslice[prop] = slice[prop];
     }
@@ -120,15 +120,12 @@ export class EditCampaignComponent implements OnInit {
   }
 
   updateCampaign(){
-    // console.log(this.campaignForm.value)
-    // console.log(this.slices);
-
     let data = {
       "name": this.campaignForm.value['name'],
       "description": this.campaignForm.value['description'],
       "slices": this.slices
     }
-    // console.log(data);
+    console.log(data);
 
     this.campaignService.update(this.campaignId, data).subscribe(result => {  
       if(result) {
