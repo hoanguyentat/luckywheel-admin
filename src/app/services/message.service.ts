@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MessageService {
+export class MyMessageService {
 
   private subject = new Subject<any>();
 
@@ -19,8 +19,13 @@ export class MessageService {
     this.toastr.error(message);
   }
 
+  public warning(message) {
+    this.toastr.warning(message);
+  }
+
+
    // send an object to app component
-   
+
   sendMessage(message: boolean) {
     this.subject.next({ userStatus: message });
   }

@@ -47,7 +47,6 @@ export class EditCampaignComponent implements OnInit {
     });
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
-      // console.log(result);
       this.campaignName = result['name'];
       this.campaignForm.setValue({
         "name": result['name'],
@@ -63,7 +62,7 @@ export class EditCampaignComponent implements OnInit {
     this.colsSlice = [
       // { field: 'index', header: 'Index' },
       { field: 'label', header: 'Label' },
-      { field: 'discountCode', header: 'Coupon' },
+      { field: 'discountCode', header: 'Discount Code' },
       { field: 'probability', header: 'Probability' },
     ];
 
@@ -76,7 +75,7 @@ export class EditCampaignComponent implements OnInit {
 
   showDialogToAdd() {
     this.newSlice = true;
-    this.slice = new SliceModel;
+    this.slice = new SliceModel({});
     this.displayDialog = true;
   }
 
@@ -112,7 +111,7 @@ export class EditCampaignComponent implements OnInit {
   }
 
   cloneSlice(slice: SliceModel): SliceModel {
-    let cslice= new SliceModel();
+    let cslice= new SliceModel({});
     for (let prop in slice) {
         cslice[prop] = slice[prop];
     }
@@ -120,18 +119,17 @@ export class EditCampaignComponent implements OnInit {
   }
 
   updateCampaign(){
-    // console.log(this.campaignForm.value)
-    // console.log(this.slices);
-
     let data = {
       "name": this.campaignForm.value['name'],
       "description": this.campaignForm.value['description'],
-      "slices": this.slices
+      "slices": this.slices,
+      "startedAt": this.campaignForm.value['startedAt'],
+      "completedAt": this.campaignForm.value['completedAt'],
     }
     // console.log(data);
 
-    this.campaignService.update(this.campaignId, data).subscribe(result => {  
-      if(result) {
+    this.campaignService.update(this.campaignId, data).subscribe(res => {  
+      if(res) {
         window.location.replace(`/#/campaign/${this.campaignId}`)
       }
     }, err => {

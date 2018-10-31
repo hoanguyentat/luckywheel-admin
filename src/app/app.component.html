@@ -1,33 +1,15 @@
-<p-confirmDialog header="Logout" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
-<p-menubar [model]="itemsMenu" [autoDisplay]="false">
-    <!-- <a *ngIf="!userStatus" href="/#/login" style="cursor: pointer;"> Login</a> -->
-    <a *ngIf="userStatus" (click)="logout()" style="cursor: pointer;"><i class="fa fa-sign-out" style="margin-left:.25em"></i> Logout</a>
-</p-menubar>
-<!-- <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb> -->
-<router-outlet></router-outlet>
-<!-- <div style="margin-bottom: 60px;"></div> -->
-<!-- <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="border: 0px #fff; background-color: #ffffff0d; padding: 10px 20px;">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-                <ul class="list-unstyled list-inline social text-right">
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
-                </ul>
-            </div>
-        </div>	
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-sm-offset-8 col-md-4 mt-2 mt-sm-2 text-right text-white">
-                <p class="h5"><strong>&copy; All right reversed. <a class="text-green ml-2" href="https://www.foxpify.com" target="_blank">Foxpify</a></strong></p>
-            </div>
-        </div>	
-    </div>
-</nav> -->
+<div class="wrapper">
+    <p-confirmDialog header="Logout" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+    <p-menubar [model]="itemsMenu" [autoDisplay]="false">
+        <!-- <a *ngIf="!userStatus" href="/#/login" style="cursor: pointer;"> Login</a> -->
+        <div style=" padding: 19px; color: white;">
+            <a *ngIf="userStatus" (click)="logout()" style="cursor: pointer; padding: 19px; color: white; text-decoration: none; font-family: 'Open Sans', 'Helvetica Neue', 'sans-serif';"><i class="fa fa-sign-out"> </i> Logout</a>
+        </div>
+    </p-menubar>
 
-<div id="footer">
+    <router-outlet></router-outlet>
+</div>
+<div class="footer">
     <ul class="list-unstyled list-inline social">
         <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
         <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>

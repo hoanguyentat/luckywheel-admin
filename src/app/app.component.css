@@ -1,7 +1,8 @@
 :host >>> .ui-menubar {
-    padding: 20px 10px !important;
-    background-color: #ffffff;
+    /* padding: 10px 10px !important; */
+    background-color: #1b2740;
     border: 1px solid #c8c8c8 !important;
+    border-radius: 0px;
 }
 
 :host >>> .ui-breadcrumb {
@@ -14,13 +15,44 @@ ul.social li:hover a i {
 	font-size:30px;
 	margin-top:-10px;
 }
-#footer {
-    width: 100%;
-    height: 28px;
-    /* border-top: 1px solid #E0E0E0; */
-    margin-top: 60px;
-    /* position: absolute; */
-    bottom: 0px; 
-    left: 0px; 
-    text-align: center; 
+
+:host >>> .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
+    padding: 1.5em 0.857em;
 }
+
+:host >>> .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link:hover {
+    background-color: #007ad9;
+    color: #fff;
+}
+
+:host >>> .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > span {
+    color: white;
+}
+
+:host >>> .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link:hover > span {
+    /* background-color: #007ad9; */
+    color: #fff;
+}
+
+:host >>> .wrapper { 
+    margin-bottom: -30px;
+    min-height: 100vh;
+    background-color: #f9f9fb;
+ }
+
+ :host >>> .wrapper:after {
+    content: "";
+    display: block;
+  }
+
+ :host >>> .footer {
+    bottom: 0;
+    right: 0; 
+    left: 0; 
+    text-align: center; 
+    height: 30px;
+}
+
+.footer, .wrapper:after {
+      height: 30px; 
+  }

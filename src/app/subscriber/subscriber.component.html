@@ -3,7 +3,7 @@
     <div>All subscribers</div>
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
-<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px; min-height: 700px;" *ngIf="subscribers != null">
+<div class="ui-lg-10 ui-lg-offset-1" style="padding-top: 30px;" *ngIf="subscribers">
     <!-- <p-dataView #dv [value]="subscribers" [paginator]="false" [rows]="10" paginatorPosition="both" filterBy="email" [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
@@ -78,11 +78,53 @@
         </div>
     </p-dialog> -->
 
+    
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="false" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <!-- Subscrbers data -->
+                    <strong><h4>Find your subscribers</h4></strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <strong> </strong>
+                    <mat-icon>group_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <!-- <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)"> -->
+            <div class="ui-g">
+                <div class="ui-g-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Full name" [formControl] = "searchForm.controls['name']">
+                    </mat-form-field>
+                </div>
+                <div class="ui-g-3">
+                    <mat-form-field>
+                        <input matInput type="email" placeholder="Email" [formControl] = "searchForm.controls['email']">
+                    </mat-form-field>
+                </div>
+                <div class="ui-g-3">
+                    <mat-form-field>
+                        <mat-select placeholder="Campaigns" multiple [formControl] = "searchForm.controls['campaignId']"> 
+                            <mat-option *ngFor="let campaign of campaigns" [value]="campaign.id">{{campaign.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="ui-g-3" style="text-align: right;">
+                    <button class="btn btn-success" (click)="searchSubscribers(searchForm.value)">SEARCH</button>
+                </div>
+            </div>
+            <!-- </form> -->
+        </mat-expansion-panel>        
+    </mat-accordion>
+    <div style="margin-top: 25px;"></div>     
+
     <p-table #dt [columns]="cols" [value]="subscribers" [tableStyle]="{'table-layout':'auto', 'box-shadow': '1px 2px 3px -1px rgb(0,0,0,0.3)'}" *ngIf="campaignNames">
         <ng-template pTemplate="caption">
             <div style="text-align: right">        
-                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                <input type="text" pInputText size="50" placeholder="Search in all fields" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <i class="fa fa-search" style="margin:4px 10px 0 0; font-size: 19px;"></i>
+                <input type="text" pInputText size="30" placeholder="Search in all fields" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -90,16 +132,19 @@
                 <th>
                     #
                 </th>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns"  [pSortableColumn]="col.field">
                     {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+                <th  [pSortableColumn]>
+                    Created At
                 </th>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th></th>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
                     <input *ngSwitchCase="'fullName'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     <input *ngSwitchCase="'email'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                    <!-- <p-dropdown *ngSwitchCase="'campaignName'" [options]="campaignNames" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown> -->
                     <p-multiSelect *ngSwitchCase="'campaignName'" [style]="{'width':'100%'}" [options]="campaignNames" defaultLabel="All Campaigns" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
                     <input *ngSwitchCase="'discountCode'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     <div *ngSwitchCase="'createdAt'">
@@ -108,7 +153,7 @@
                         <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="createdAtFilter" [min]="2000" [max]="2050" (onChange)="onCreatedAtChange($event, dt)"></p-slider>
                     </div>
                 </th>
-            </tr>
+            </tr> -->
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
             <tr [pSelectableRow]="rowData">
@@ -118,10 +163,19 @@
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                 </td>
+                <td>
+                    {{rowData['createdAt'] | date: "dd-MM-yyyy"}}
+                </td>
             </tr>
         </ng-template>
     </p-table>
     <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginateSubs($event)"></p-paginator>
 </div>
 
+<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px; min-height: 700px;" *ngIf="!subscribers">
+    <div class="middle-box text-center loginscreen" style="padding: 155px; min-height: 820px;">
+        <div class="alert alert-info" role="alert">You don't have any subscribers.
+        </div>
+    </div>
+</div>
     

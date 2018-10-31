@@ -4,6 +4,9 @@ import { CampaignService } from '../services/campaign.service';
 import { MenuItem, MessageService, SelectItem, ConfirmationService } from 'primeng/api';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
+import { MyMessageService } from '../services/message.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-campaign',
@@ -20,9 +23,10 @@ export class CampaignComponent implements OnInit {
   totalCount: number;
   currentPage = 1;
   pageSize = 5;
+  _unsubscribeAll: Subject<any>
 
 
-  campaigns: CampaignModel[];
+  campaigns: CampaignModel[] = [];
   cols: any[];
   itemsBreadrumb: MenuItem[];
 
@@ -30,15 +34,21 @@ export class CampaignComponent implements OnInit {
     private campaignService: CampaignService,
     private fb: FormBuilder, 
     private messageService: MessageService,
+    private myMessService: MyMessageService,
     private route: Router,
     private confirmationService: ConfirmationService,
-    ) { }
+    ) { 
+      this._unsubscribeAll = new Subject();
+    }
 
   ngOnInit() {
     this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
       this.campaigns = result['content'];
       this.totalCount = result['totalCount'];
       // console.log(this.campaigns)
+      if(!this.campaigns) {
+        this.myMessService.warning("You should create new campaign to continue")
+      }
     });
 
     this.cols = [
@@ -59,12 +69,38 @@ export class CampaignComponent implements OnInit {
       'startedAt': new FormControl(''),
       'completedAt': new FormControl('')
     });
+
+    // Subscribe for event campaign change
+
+    this.campaignService.onCampaignAdded
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(newCampaign => {
+          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === newCampaign.id);
+          this.campaigns.splice(campaignIndex, 1);
+          this.campaigns.splice(campaignIndex, 0, newCampaign);
+      });
+
+    this.campaignService.onCampaignUpdated
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(updatedCampaign => {
+          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === updatedCampaign.id);
+          this.campaigns.splice(campaignIndex, 1);
+          this.campaigns.splice(campaignIndex, 0, updatedCampaign);
+      });
+
+    this.campaignService.onCampaignDeleted
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(campaignId => {
+          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
+          this.campaigns.splice(campaignIndex, 1);
+          this.totalCount = this.totalCount - 1;
+      });
   }
 
   paginate($event) {
     this.currentPage = $event.page + 1;
-    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
-      this.campaigns = result['content'];
+    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(res => {
+      this.campaigns = res['content'];
     });
   }
 
@@ -73,10 +109,12 @@ export class CampaignComponent implements OnInit {
       header: 'Delete campaign',
       message: 'Are you sure?',
       accept: () => {
-        this.campaignService.remove(id).subscribe(result => {
-          setTimeout( () => {
-            location.reload();
-          }, 200);
+        this.campaignService.remove(id).subscribe(res => {
+          if (res) {
+            this.campaignService.onCampaignDeleted.next(id);
+          }
+        }, err => {
+          console.log("Delete error");
         })
       }
     })
@@ -87,32 +125,39 @@ export class CampaignComponent implements OnInit {
       header: 'Stop campaign',
       message: 'Are you sure?',
       accept: () => {
-        this.campaignService.stop(id).subscribe(result => {
-          setTimeout( () => {
-            location.reload();
-          }, 200);
+        this.campaignService.stop(id).subscribe(res => {
+          if (res) {
+            this.campaignService.onCampaignUpdated.next(res);
+          }
         })
       }
     })
   }
 
   activeCampaign(id: string) {
-    this.campaignService.active(id).subscribe(result => {
-      setTimeout( () => {
-        location.reload();
-      }, 200);
+    this.campaignService.active(id).subscribe(res => {
+      if (res) {
+        this.campaignService.onCampaignUpdated.next(res);
+      }
     })
   }
 
-  createCampaign(value: string) {
-    // console.log(value);
-    this.campaignService.create(JSON.stringify(value)).subscribe(result => {
-      setTimeout( () => {
-        location.replace(`/#/campaign/${result['id']}/edit`);
-        // this.route.navigate[`/#/campaign/${result['id']}/edit`]
-      }, 200);
+  createCampaign(value: JSON) {
+    for(let key of Object.keys(value)) {
+      if(value[key] == "") {
+        value[key] = null;
+      }
+    }
+    this.campaignService.create(JSON.stringify(value))
+    .subscribe(res => {
+      if (res) {
+        setTimeout( () => {
+          location.replace(`/#/campaign/${res['id']}/edit`);
+        }, 200);
+      }
+    }, err => {
+      console.log(err);
     })
-    // this.submitted = true;
   }
 
   get diagnostic() { return JSON.stringify(this.campaignForm.value); }

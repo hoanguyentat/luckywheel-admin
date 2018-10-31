@@ -14,13 +14,27 @@ export class SubscriberService {
     // subUrl = '/assets/data/cars-large.json'
 
 
-    getSubscribers(page: number, size: number): Observable<SubscriberModel[]> {
-        let url = `${environment.domain}/subscribers?page=${page}&size=${size}`;
+    getSubscribers(data): Observable<SubscriberModel[]> {
+        let url = `${environment.domain}/subscribers?`;
+        let count = 1;
+        let dataKeys = Object.keys(data);
+        for(let key in data) {
+            if(data[key] == "" || data[key] == null){
+                count++;
+                continue;
+            }
+            if (count < dataKeys.length){
+                url = url + key + "=" + data[key] + "&";
+                count++;
+            } else {
+                url = url + key + "=" + data[key];
+            }
+        };
         return this.http.get<SubscriberModel[]>(url)
-                    .pipe(
-                        tap(_subscribers => {}),
-                        catchError(this.errorsService.handleError('getSubscriber', []))
-                        );
+        .pipe(
+            tap(_subscribers => {}),
+            catchError(this.errorsService.handleError('getSubscriber', []))
+            );
     }
 
     getSubscriber(id: number): Observable<SubscriberModel> {

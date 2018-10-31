@@ -7,6 +7,9 @@ import { environment } from '../../../environments/environment.prod';
 import { SubscriberModel } from '../../core/models/Subscriber';
 import { SubscriberService } from '../../services/subscriber.service';
 import { SliceModel } from '../../core/models/Slice';
+import { MyMessageService } from '../../services/message.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-detail-campaign',
@@ -21,6 +24,7 @@ export class DetailCampaignComponent implements OnInit {
   colsSub: any[];
   itemsBreadrumb: MenuItem[];
   campaignId: string;
+  _unsubscribeAll: Subject<any>;
 
   subscribers: SubscriberModel[];
 
@@ -29,20 +33,27 @@ export class DetailCampaignComponent implements OnInit {
   pageSizeSubs = 10;
 
   selectedSubscribers: SubscriberModel[];
-  constructor(private campaignService: CampaignService, private activateRoute: ActivatedRoute) { }
+  constructor(
+    private campaignService: CampaignService, 
+    private activateRoute: ActivatedRoute, 
+    private messageService: MyMessageService
+    ) { 
+      this._unsubscribeAll = new Subject();
+    }
 
   ngOnInit() {
 
     this.campaignId = this.activateRoute.snapshot.paramMap.get('id');
 
-    this.campaignService.getDetail(this.campaignId).subscribe(result => {
-      this.campaign = result;
-      this.slices = result['slices'];
-      // console.log(this.campaign);
+    this.campaignService.getDetail(this.campaignId).subscribe(campaign => {
+      this.campaign = new CampaignModel(campaign);
+      this.slices = campaign['slices'];
+      if(!this.slices) {
+        this.messageService.warning("You should setup your spinner slices to continue");
+      }
     });
 
     this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe( subs => {
-      // console.log(subs);
       this.totalSubs = subs['totalCount'];
       this.subscribers = subs['content'];
     })
@@ -50,7 +61,7 @@ export class DetailCampaignComponent implements OnInit {
     this.colsSlice = [
         // { field: 'index', header: 'Index' },
         { field: 'label', header: 'Label' },
-        { field: 'discountCode', header: 'Coupon' },
+        { field: 'discountCode', header: 'Discount Code' },
         { field: 'probability', header: 'Probability' },
     ];
 
@@ -71,25 +82,24 @@ export class DetailCampaignComponent implements OnInit {
 
   paginateSubs($event) {
     this.currentPageSub = $event.page + 1;
-    this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs).subscribe(subs => {
-      this.subscribers = subs['content'];
-    });
+    this.campaignService.getSubscribers(this.campaignId, this.currentPageSub, this.pageSizeSubs)
+      // .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(subs => {
+        this.subscribers = subs['content'];
+      });
   }
 
   stopCampaign(id: string) {
     this.campaignService.stop(id).subscribe(result => {
-      setTimeout( () => {
-        location.reload();
-      }, 1000);
+      console.log(result);
+      this.campaign.toggleActive();
     })
   }
 
   activeCampaign(id: string) {
     this.campaignService.active(id).subscribe(result => {
-      // this.messageService.add({severity:'info', summary:'Success', detail:'Add campaign success!'});  
-      setTimeout( () => {
-        location.reload();
-      }, 1000);
+      console.log(result);
+      this.campaign.toggleActive();
     })
   }
 

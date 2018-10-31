@@ -8,7 +8,7 @@
 
 :host >>> .ui-paginator {
     margin-top: 10px;
-    background-color: #fff;
+    background-color: #f9f9fb;
     border: 0px solid #c8c8c8;
     padding: 0;
 }
@@ -19,4 +19,14 @@
     border: 0px solid #c8c8c8;
     padding: 0.571em 1em;
     text-align: center;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
 }

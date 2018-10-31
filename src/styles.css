@@ -1,8 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+:host >>> html {
+    height: 100%;
+    /* box-sizing: border-box; */
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 :host >>> body {
-    background-color: #f4f6f8 !important;
-    font-family: HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: 400;
+    min-height: 100%;
+    background-color: #f9f9fb !important;
 }
 
 .breadcrumb {
@@ -10,6 +24,6 @@
 }
 
 .breadcrumb > div {
-    padding: 10px 15px; 
+    padding: 7px 15px; 
     font-size: 25px;
 }

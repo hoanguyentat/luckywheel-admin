@@ -16,10 +16,11 @@
     margin-bottom: 1.6%;
     background: #fff;
     line-height: 1.4;
-    font-family: sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
     /* border-radius: 5px; */
     overflow: hidden;
     z-index: 0;
+    max-width: 95%;
   }
   .blog-card a {
     color: inherit;
@@ -75,17 +76,17 @@
     display: inline-block;
   }
   .blog-card .details .author:before {
-    font-family: FontAwesome;
+    /* font-family: FontAwesome; */
     margin-right: 10px;
     content: "\f007";
   }
   .blog-card .details .date:before {
-    font-family: FontAwesome;
+    /* font-family: FontAwesome; */
     margin-right: 10px;
     content: "\f133";
   }
   .blog-card .details .tags ul:before {
-    font-family: FontAwesome;
+    /* font-family: FontAwesome; */
     content: "\f02b";
     margin-right: 10px;
   }
@@ -127,7 +128,7 @@
   }
   .blog-card .description .read-more a:after {
     content: "\f061";
-    font-family: FontAwesome;
+    /* font-family: FontAwesome; */
     margin-left: -10px;
     opacity: 0;
     vertical-align: middle;
@@ -159,7 +160,7 @@
   @media (min-width: 640px) {
     .blog-card {
       flex-direction: row;
-      max-width: 80%;
+      max-width: 95%;
     }
     .blog-card .meta {
       flex-basis: 40%;
@@ -196,7 +197,7 @@
   
 
 :host >>> .ui-paginator {
-    background-color: #ffffff;
+    background-color: #f9f9fb;
     border: 0px solid #c8c8c8;
     padding: 0;
 }

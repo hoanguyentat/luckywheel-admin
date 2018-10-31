@@ -2,8 +2,8 @@
     <div *ngIf="campaign">{{campaign.name}}</div>
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
-<div class="ui-g" style="padding: 30px; min-height: 700px;" *ngIf="campaign">
-    <div class="ui-md-12 ui-lg-3">   
+<div class="ui-g" *ngIf="campaign">
+    <div class="ui-sm-12 ui-md-4 ui-lg-3 ui-lg-offset-1">   
         <p-card title="{{campaign.name | uppercase}}" subtitle="Description" styleClass="ui-card-shadow">
             <p-header>
                 <img src="https://mybroadband.co.za/news/wp-content/uploads/2016/11/Black-Friday-shopping-survival.jpg">
@@ -18,9 +18,9 @@
             </p-footer>
         </p-card>
     </div>
-    <div class="ui-lg-8 ui-md-12">
-        <div class="ui-g-12 ui-md-12">
-            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}">
+    <div class="ui-sm-12 ui-md-8 ui-lg-7">
+        <div class="ui-grid-row" style="margin-bottom: 15px;">
+            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}" [responsive]="true">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th>
@@ -41,10 +41,15 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <td colspan=4>
+                        <h4 style="text-align: center;"> No slices! </h4>
+                    </td>
+                </ng-template>
             </p-table>
         </div>
-        <div class="ui-g-12 ui-md-12" *ngIf="subscribers">
-            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}">
+        <div class="ui-grid-row" *ngIf="subscribers">
+            <p-table #dt [columns]="colsSub" [value]="subscribers" [responsive]="true" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}">
                 <ng-template pTemplate="caption">
                     <h3>Subscribers of campaign</h3>
                     <div class="ui-helper-clearfix">
@@ -72,8 +77,13 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <td colspan=6>
+                        <h4 style="text-align: center;">No subscribers!</h4>
+                    </td>
+                </ng-template>
             </p-table>
-            <p-paginator class="panigation" [rows]="pageSizeSubs" [totalRecords]="totalSubs" (onPageChange)="paginateSubs($event)"></p-paginator>
+            <p-paginator class="panigation" [rows]="pageSizeSubs" [totalRecords]="totalSubs" (onPageChange)="paginateSubs($event)" *ngIf="subscribers.length !== 0"></p-paginator>
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'campaign', loadChildren: './campaign/campaign.module#CampaignModule', canActivate: [AuthGuard]},
   {path: 'subscriber', loadChildren: './subscriber/subscriber.module#SubscriberModule', canActivate: [AuthGuard]},
   {path: 'integration', component: IntegrationComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
+  // {path: 'login', component: LoginComponent},
   {path: 'authentication', component: HomeComponent},
   {path: '**', redirectTo: 'authentication',  pathMatch: 'full'}
 ];
