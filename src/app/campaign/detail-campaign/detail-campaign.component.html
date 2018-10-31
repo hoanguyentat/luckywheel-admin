@@ -20,7 +20,7 @@
     </div>
     <div class="ui-sm-12 ui-md-8 ui-lg-7">
         <div class="ui-grid-row" style="margin-bottom: 15px;">
-            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}">
+            <p-table [columns]="colsSlice" [value]="slices" [tableStyle]="{'table-layout':'auto'}" [responsive]="true">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th>
@@ -41,10 +41,15 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <td colspan=4>
+                        <h4 style="text-align: center;"> No slices! </h4>
+                    </td>
+                </ng-template>
             </p-table>
         </div>
         <div class="ui-grid-row" *ngIf="subscribers">
-            <p-table #dt [columns]="colsSub" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}">
+            <p-table #dt [columns]="colsSub" [value]="subscribers" [responsive]="true" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto'}">
                 <ng-template pTemplate="caption">
                     <h3>Subscribers of campaign</h3>
                     <div class="ui-helper-clearfix">
@@ -72,8 +77,13 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <td colspan=6>
+                        <h4 style="text-align: center;">No subscribers!</h4>
+                    </td>
+                </ng-template>
             </p-table>
-            <p-paginator class="panigation" [rows]="pageSizeSubs" [totalRecords]="totalSubs" (onPageChange)="paginateSubs($event)"></p-paginator>
+            <p-paginator class="panigation" [rows]="pageSizeSubs" [totalRecords]="totalSubs" (onPageChange)="paginateSubs($event)" *ngIf="subscribers.length !== 0"></p-paginator>
         </div>
     </div>
 </div>

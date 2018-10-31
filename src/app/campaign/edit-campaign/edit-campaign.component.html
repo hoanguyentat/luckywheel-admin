@@ -117,7 +117,12 @@
                                 <div style="text-align:left">
                                     <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
                                 </div>
-                            </ng-template>    
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                    <td colspan=6>
+                                        <h4 style="text-align: center;">No slices!</h4>
+                                    </td>
+                                </ng-template>
                         </p-table>
                     </div>
                 </div>

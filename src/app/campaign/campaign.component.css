@@ -20,7 +20,7 @@
     /* border-radius: 5px; */
     overflow: hidden;
     z-index: 0;
-    max-width: 91%;
+    max-width: 95%;
   }
   .blog-card a {
     color: inherit;
@@ -160,7 +160,7 @@
   @media (min-width: 640px) {
     .blog-card {
       flex-direction: row;
-      max-width: 85%;
+      max-width: 95%;
     }
     .blog-card .meta {
       flex-basis: 40%;
