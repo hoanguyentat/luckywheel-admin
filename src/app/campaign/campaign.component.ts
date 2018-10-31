@@ -99,8 +99,8 @@ export class CampaignComponent implements OnInit {
 
   paginate($event) {
     this.currentPage = $event.page + 1;
-    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(result => {
-      this.campaigns = result['content'];
+    this.campaignService.getList(this.currentPage, this.pageSize).subscribe(res => {
+      this.campaigns = res['content'];
     });
   }
 
@@ -142,11 +142,15 @@ export class CampaignComponent implements OnInit {
         value[key] = null;
       }
     }
-    this.campaignService.create(JSON.stringify(value)).subscribe(result => {
-      setTimeout( () => {
-        location.replace(`/#/campaign/${result['id']}/edit`);
-        // this.route.navigate[`/#/campaign/${result['id']}/edit`]
-      }, 200);
+    this.campaignService.create(JSON.stringify(value))
+    .subscribe(res => {
+      if (res) {
+        setTimeout( () => {
+          location.replace(`/#/campaign/${res['id']}/edit`);
+        }, 200);
+      }
+    }, err => {
+      console.log(err);
     })
   }
 

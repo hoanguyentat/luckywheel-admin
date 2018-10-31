@@ -60,8 +60,11 @@ export class CampaignService {
 
     create(data): Observable<CampaignModel> {
         let url = `${this.baseUrl}/campaigns`;
-        return this.http.post<CampaignModel>(url, data).pipe(
-            tap(_campaign => {this.messageService.info("Created campaign!")}),
+        return this.http.post<CampaignModel>(url, data)
+        .pipe(
+            tap(_campaign => {
+                this.messageService.info(`Campaign "${_campaign.description}" is create succesfully.`);
+            }),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
@@ -69,16 +72,20 @@ export class CampaignService {
     stop(id: string): Observable<CampaignModel> {
         let url = `${this.baseUrl}/campaigns/${id}/deactivate`;
         return this.http.post<CampaignModel>(url, {}).pipe(
-            tap(_campaign => {this.messageService.info("Stopped campaign!")}),
+            tap(_campaign => {
+                this.messageService.info(`Campaign "${_campaign.description}" is stopped.`);
+            }),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
 
     active(id: string):  Observable<CampaignModel> {
         let url = `${this.baseUrl}/campaigns/${id}/activate`;
-        // console.log(url);
         return this.http.post<CampaignModel>(url, {}).pipe(
-            tap(_campaign => {this.messageService.info("Activated campaign!")}),
+            tap(_campaign => {
+                console.log(_campaign);
+                this.messageService.info(`Campaign "${_campaign.description}" is activated.`);
+            }),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }
@@ -94,7 +101,10 @@ export class CampaignService {
     remove(id: string): Observable<CampaignModel> {
         let url = `${this.baseUrl}/campaigns/${id}`;
         return this.http.delete<CampaignModel>(url).pipe(
-            tap(_campaign => {this.messageService.info("Deleted campaign!")}),
+            tap(_campaign => {
+                console.log(_campaign);
+                this.messageService.info("Campaign is deleted.");
+            }),
             catchError(this.errorsService.handleError<CampaignModel>(`Error: `))
         )
     }

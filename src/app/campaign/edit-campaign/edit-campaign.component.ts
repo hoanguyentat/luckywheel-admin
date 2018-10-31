@@ -127,8 +127,8 @@ export class EditCampaignComponent implements OnInit {
     }
     console.log(data);
 
-    this.campaignService.update(this.campaignId, data).subscribe(result => {  
-      if(result) {
+    this.campaignService.update(this.campaignId, data).subscribe(res => {  
+      if(res) {
         window.location.replace(`/#/campaign/${this.campaignId}`)
       }
     }, err => {
