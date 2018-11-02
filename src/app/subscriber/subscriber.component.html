@@ -3,7 +3,7 @@
     <div>All subscribers</div>
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
-<div class="ui-lg-10 ui-lg-offset-1" style="padding-top: 30px;" *ngIf="subscribers">
+<div class="ui-lg-8 ui-lg-offset-2" style="padding-top: 30px;" *ngIf="subscribers">
     <mat-accordion class="example-headers-align">
         <mat-expansion-panel [expanded]="false" hideToggle>
             <mat-expansion-panel-header>
@@ -19,24 +19,24 @@
             
             <!-- <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)"> -->
             <div class="ui-g">
-                <div class="ui-g-3">
+                <div class="ui-g-12 ui-lg-3 ui-md-6">
                     <mat-form-field>
                         <input matInput placeholder="Full name" [formControl] = "searchForm.controls['name']">
                     </mat-form-field>
                 </div>
-                <div class="ui-g-3">
+                <div class="ui-g-12 ui-lg-3 ui-md-6">
                     <mat-form-field>
                         <input matInput type="email" placeholder="Email" [formControl] = "searchForm.controls['email']">
                     </mat-form-field>
                 </div>
-                <div class="ui-g-3">
+                <div class="ui-g-12 ui-lg-3 ui-md-6">
                     <mat-form-field>
                         <mat-select placeholder="Campaigns" [formControl] = "searchForm.controls['campaignId']"> 
                             <mat-option *ngFor="let campaign of campaigns" [value]="campaign.id">{{campaign.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="ui-g-3" style="text-align: right;">
+                <div class="ui-g-12 ui-lg-3 ui-md-6">
                     <button class="btn btn-success" (click)="searchSubscribers(searchForm.value)">SEARCH</button>
                 </div>
             </div>
@@ -80,6 +80,11 @@
                     {{rowData['createdAt'] | date: "dd-MM-yyyy"}}
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <td colspan=6>
+                <h4 style="text-align: center;">No subscribers!</h4>
+            </td>
         </ng-template>
     </p-table>
     <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginateSubs($event)"></p-paginator>
