@@ -4,81 +4,6 @@
     <p-breadcrumb [model]="itemsBreadrumb"></p-breadcrumb>
 </div>
 <div class="ui-lg-10 ui-lg-offset-1" style="padding-top: 30px;" *ngIf="subscribers">
-    <!-- <p-dataView #dv [value]="subscribers" [paginator]="false" [rows]="10" paginatorPosition="both" filterBy="email" [sortField]="sortField" [sortOrder]="sortOrder">
-        <p-header>
-            <div class="ui-helper-clearfix">
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-4">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="true" [style]="{'min-width':'15em'}"></p-dropdown>
-                    </div>
-                    <div class="ui-g-6 ui-md-4 filter-container">
-                        <div style="position:relative">
-                            <input type="search" pInputText placeholder="Search by email" (keyup)="dv.filter($event.target.value)">
-                        </div>
-                    </div>
-                    <div class="ui-g-6 ui-md-4" style="text-align:right">
-                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                    </div>
-                </div>
-            </div>
-        </p-header>
-        <ng-template let-subscriber pTemplate="listItem">
-            <div class="ui-g" style="border-bottom: 1px solid #d9d9d9">
-                <div class="ui-g-12 ui-md-2" style="text-align:center">
-                    <img class="img img-responsive" style="height: 100px;" src="http://pngimages.net/sites/default/files/user-png-image-15189.png">
-                </div>
-                <div class="ui-g-12 ui-md-8 subscriber-details">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Name: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.fullName}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Email: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{subscriber.email}}</b></div>
-                    </div>
-                </div>
-                <div class="ui-g-12 ui-md-1 search-icon">
-                    <button pButton type="button" icon="pi pi-search" (click)="selectSubscriber($event, subscriber)"></button>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template let-subscriber pTemplate="gridItem">
-            <div style="padding:.5em" class="ui-g-12 ui-md-3">
-                <p-panel [header]="subscriber.vin" [style]="{'text-align':'center'}">
-                    <img src="http://pngimages.net/sites/default/files/user-png-image-15189.png" width="60">
-                    <div class="subscriber-detail">{{subscriber.fullName}} - {{subscriber.email}}</div>
-                    <hr class="ui-widget-content" style="border-top:0">
-                    <button pButton type="button" icon="pi pi-search" (click)="selectSubscriber($event, subscriber)" style="margin-top:0"></button>
-                </p-panel>
-            </div>
-        </ng-template>
-    </p-dataView>
-    <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginateSubs($event)"></p-paginator>
-    <p-dialog header="subscriber Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="425" (onAfterHide)="onDialogHide()">
-        <div class="ui-g" *ngIf="selectedSubscriber">
-            <div class="ui-g-12" style="text-align:center">
-                <img src="http://pngimages.net/sites/default/files/user-png-image-15189.png">
-            </div>
-            <div class="ui-g-4">ID: </div>
-            <div class="ui-g-8">{{selectedSubscriber.id}}</div>    
-
-            <div class="ui-g-4">Name: </div>
-            <div class="ui-g-8">{{selectedSubscriber.fullName}}</div>
-
-            <div class="ui-g-4">Email: </div>
-            <div class="ui-g-8">{{selectedSubscriber.email}}</div>
-
-            <div class="ui-g-4">Campaign: </div>
-            <div class="ui-g-8">{{selectedSubscriber.campaignName}}</div>
-
-            <div class="ui-g-4">Coupon: </div>
-            <div class="ui-g-8">{{selectedSubscriber.discountCode}}</div>
-
-            <div class="ui-g-4">Created time: </div>
-            <div class="ui-g-8">{{selectedSubscriber.createdAt}}</div>                
-        </div>
-    </p-dialog> -->
-
-    
     <mat-accordion class="example-headers-align">
         <mat-expansion-panel [expanded]="false" hideToggle>
             <mat-expansion-panel-header>
@@ -106,7 +31,7 @@
                 </div>
                 <div class="ui-g-3">
                     <mat-form-field>
-                        <mat-select placeholder="Campaigns" multiple [formControl] = "searchForm.controls['campaignId']"> 
+                        <mat-select placeholder="Campaigns" [formControl] = "searchForm.controls['campaignId']"> 
                             <mat-option *ngFor="let campaign of campaigns" [value]="campaign.id">{{campaign.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -120,11 +45,13 @@
     </mat-accordion>
     <div style="margin-top: 25px;"></div>     
 
-    <p-table #dt [columns]="cols" [value]="subscribers" [tableStyle]="{'table-layout':'auto', 'box-shadow': '1px 2px 3px -1px rgb(0,0,0,0.3)'}" *ngIf="campaignNames">
+    <p-table #dt [columns]="cols" [value]="subscribers" selectionMode="multiple" [(selection)]="selectedSubscribers" [tableStyle]="{'table-layout':'auto', 'box-shadow': '1px 2px 3px -1px rgb(0,0,0,0.3)'}" *ngIf="campaignNames">
         <ng-template pTemplate="caption">
-            <div style="text-align: right">        
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export All" (click)="dt.exportCSV()" style="float:left"></button>
                 <i class="fa fa-search" style="margin:4px 10px 0 0; font-size: 19px;"></i>
                 <input type="text" pInputText size="30" placeholder="Search in all fields" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <button type="button" pButton icon="fa fa-file" iconPos="left" label="Export Selection" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -140,20 +67,6 @@
                     Created At
                 </th>
             </tr>
-            <!-- <tr>
-                <th></th>
-                <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <input *ngSwitchCase="'fullName'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                    <input *ngSwitchCase="'email'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                    <p-multiSelect *ngSwitchCase="'campaignName'" [style]="{'width':'100%'}" [options]="campaignNames" defaultLabel="All Campaigns" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
-                    <input *ngSwitchCase="'discountCode'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                    <div *ngSwitchCase="'createdAt'">
-                        Year > {{createdAtFilter}} 
-                        <i class="fa fa-close" (click)="createdAtFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="createdAtFilter" style="float: right;"></i>
-                        <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="createdAtFilter" [min]="2000" [max]="2050" (onChange)="onCreatedAtChange($event, dt)"></p-slider>
-                    </div>
-                </th>
-            </tr> -->
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
             <tr [pSelectableRow]="rowData">

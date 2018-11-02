@@ -88,10 +88,11 @@
        </div>
        <p-paginator class="panigation" [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="paginate($event)"></p-paginator>
     </div>
-
     <div class="ui-lg-6 ui-md-12 ui-sm-12" *ngIf="!campaigns">
-        <div class="middle-box text-center loginscreen" style="padding: 155px;">
-            <div class="alert alert-info" role="alert">You have not campaign!
+        <div class="row" style="min-height: 700px;"> 
+            <div class="middle-box text-center loginscreen" style="padding: 155px;">
+                <div class="alert alert-info" role="alert">You have not campaign!
+                </div>
             </div>
         </div>
     </div>
