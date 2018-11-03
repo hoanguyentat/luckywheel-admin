@@ -91,9 +91,10 @@ export class CampaignComponent implements OnInit {
     this.campaignService.onCampaignDeleted
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(campaignId => {
-          const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
-          this.campaigns.splice(campaignIndex, 1);
-          this.totalCount = this.totalCount - 1;
+        console.log(campaignId)
+        const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
+        this.campaigns.splice(campaignIndex, 1);
+        this.totalCount = this.totalCount - 1;
       });
   }
 
@@ -110,9 +111,10 @@ export class CampaignComponent implements OnInit {
       message: 'Are you sure?',
       accept: () => {
         this.campaignService.remove(id).subscribe(res => {
-          if (res) {
+          // console.log(res)
+          // if (res) {
             this.campaignService.onCampaignDeleted.next(id);
-          }
+          // }
         }, err => {
           console.log("Delete error");
         })
