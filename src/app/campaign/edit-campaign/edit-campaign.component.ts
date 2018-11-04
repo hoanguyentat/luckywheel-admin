@@ -48,11 +48,12 @@ export class EditCampaignComponent implements OnInit {
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
       this.campaignName = result['name'];
+      // console.log(result)
       this.campaignForm.setValue({
         "name": result['name'],
         "description": result['description'],
-        "startedAt": new Date(result['startedAt']),
-        "completedAt": new Date(result['completedAt'])
+        "startedAt": result['startedAt'] ? new Date(result['startedAt']): null,
+        "completedAt": result['completedAt'] ? new Date(result['completedAt']): null
       });
       if(result['slices']) {
         this.slices = result['slices'];
@@ -126,7 +127,7 @@ export class EditCampaignComponent implements OnInit {
       "startedAt": this.campaignForm.value['startedAt'],
       "completedAt": this.campaignForm.value['completedAt'],
     }
-    // console.log(data);
+    console.log(data);
 
     this.campaignService.update(this.campaignId, data).subscribe(res => {  
       if(res) {

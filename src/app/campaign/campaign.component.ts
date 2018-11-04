@@ -91,7 +91,6 @@ export class CampaignComponent implements OnInit {
     this.campaignService.onCampaignDeleted
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(campaignId => {
-        console.log(campaignId)
         const campaignIndex = this.campaigns.findIndex(campaign => campaign.id === campaignId);
         this.campaigns.splice(campaignIndex, 1);
         this.totalCount = this.totalCount - 1;
@@ -150,6 +149,7 @@ export class CampaignComponent implements OnInit {
         value[key] = null;
       }
     }
+    console.log(value)
     this.campaignService.create(JSON.stringify(value))
     .subscribe(res => {
       if (res) {

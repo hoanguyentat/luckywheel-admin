@@ -4,7 +4,7 @@
 </div>
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="ui-g">
-    <div class="ui-lg-4 ui-lg-offset-1 ui-md-12 ui-sm-12">   
+    <div class="ui-lg-4 ui-lg-offset-1 ui-md-5 ui-sm-12">   
         <form [formGroup]="campaignForm" (ngSubmit)="createCampaign(campaignForm.value)">
             <p-panel header="Quick Campaign" [style]= "{'font-style': 'bold'}">
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -56,7 +56,7 @@
             </p-panel>
         </form>
     </div>
-    <div class="ui-lg-6 ui-md-12 ui-sm-12" *ngIf="campaigns">
+    <div class="ui-lg-6 ui-md-7 ui-sm-12" *ngIf="campaigns">
        <div class="row" style="min-height: 700px;"> 
             <div class="blog-card" *ngFor="let campaign of campaigns" style="min-height: 120px;">
                 <div class="meta">
