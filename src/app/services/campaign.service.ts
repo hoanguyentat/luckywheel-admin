@@ -104,7 +104,7 @@ export class CampaignService {
         let url = `${this.baseUrl}/campaigns/${id}`;
         return this.http.delete<CampaignModel>(url).pipe(
             tap(_campaign => {
-                console.log(_campaign);
+                // console.log(_campaign);
                 this.messageService.info("Campaign is deleted.");
             }),
             catchError(this.errorsService.handleError<CampaignModel>(`Error`))

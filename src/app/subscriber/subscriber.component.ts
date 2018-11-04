@@ -25,6 +25,8 @@ export class SubscriberComponent implements OnInit {
 
   selectedSubscriber: SubscriberModel;
 
+  selectedSubscribers: SubscriberModel[];
+
   cols: any[];
   subscribers: SubscriberModel[];
   itemsBreadrumb: MenuItem[];
