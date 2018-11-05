@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  domain: "https://foxpify.com"
+  domain: "https://lucky-wheel.foxpify.com/api"
 };
