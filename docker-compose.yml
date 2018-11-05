@@ -1,14 +1,13 @@
-version: '3.5'
-
+version: '2'
 services:
-
-  wheel-admin:
-    container_name: wheel-admin
-    build:
-      context: .
-      dockerfile: Dockerfile
+  luckywheel-admin:
+    image: registry.gitlab.com/foxpify/luckywheel-admin
+    stdin_open: true
+    labels:
+      io.rancher.container.pull_image: always
     volumes:
       - '.:/usr/src/app'
       - '/usr/src/app/node_modules'
-    ports:
-      - '4200:4200'
+#    ports:
+#      - '4200:4200'
+
