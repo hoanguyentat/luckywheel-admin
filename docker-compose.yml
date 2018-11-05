@@ -5,9 +5,9 @@ services:
     stdin_open: true
     labels:
       io.rancher.container.pull_image: always
-    volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
+#    volumes:
+#      - '.:/usr/src/app'
+#      - '/usr/src/app/node_modules'
 #    ports:
 #      - '4200:4200'
 
