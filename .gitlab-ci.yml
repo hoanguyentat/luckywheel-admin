@@ -41,6 +41,7 @@ build:
   only:
   - master
   script:
+  - npm install
   - ng build
 
 
