@@ -1,21 +1,6 @@
-# base image
-FROM node:9.6.1
+FROM nginx:alpine
 
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# set working directory
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
-
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
-# add app
-ADD . /usr/src/app
-
-# install and cache app dependencies
-#COPY package.json /usr/src/app/package.json
-RUN npm install
-RUN npm install -g @angular/cli
-
-# start app
-CMD ng serve --host 0.0.0.0
+WORKDIR /usr/share/nginx/html
+COPY dist/admin-luckywheel .
