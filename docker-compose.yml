@@ -1,14 +1,8 @@
 version: '3.5'
 
 services:
-
-  wheel-admin:
-    container_name: wheel-admin
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
-    ports:
-      - '4200:4200'
+    wheel-admin:
+        image: 'wheel-admin'
+        build: '.'
+        ports:
+            - 4200:80
