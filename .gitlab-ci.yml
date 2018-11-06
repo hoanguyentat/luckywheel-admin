@@ -4,6 +4,7 @@
 #
 
 stages:
+- build
 - dockerize
 - deploy
 
@@ -28,6 +29,19 @@ cache:
   paths:
   - .m2/repository/
   - target/
+
+#
+# Build
+#
+build:
+  stage: build
+  tags:
+  - foxpify
+  image: johnpapa/angular-cli
+  only:
+  - master
+  script:
+  - ng build
 
 
 #
