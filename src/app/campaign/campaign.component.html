@@ -75,13 +75,13 @@
                         {{ (campaign.description.length>50)? (campaign.description | slice:0:50)+'...':(campaign.description) }}
                     </p>
                     <ul class="list-inline">
-                        <li><a href="/#/campaign/{{campaign.id}}/edit"><span class="glyphicon glyphicon-pencil"> Edit</span></a></li> | 
+                        <li><a href="/admin/#/campaign/{{campaign.id}}/edit"><span class="glyphicon glyphicon-pencil"> Edit</span></a></li> | 
                         <li><a (click)="removeCampaign(campaign.id)" style="color: darkgoldenrod; cursor: pointer;"><span class="glyphicon glyphicon-trash"> Remove</span></a></li> | 
                         <li *ngIf="campaign.active"><a (click)="stopCampaign(campaign.id)" style="color: red; cursor: pointer;"><span class="glyphicon glyphicon-stop"> Stop</span></a></li>
                         <li *ngIf="!campaign.active"><a (click)="activeCampaign(campaign.id)" style="color: rgb(238, 222, 6); cursor: pointer;"><span class="glyphicon glyphicon-play-circle"> Active</span></a></li>
                     </ul>
                     <p class="read-more">
-                        <a href="/#/campaign/{{campaign.id}}"><strong>More Details</strong></a>
+                        <a href="/admin/#/campaign/{{campaign.id}}"><strong>More Details</strong></a>
                     </p>
                 </div>
             </div>

@@ -68,8 +68,8 @@ export class EditCampaignComponent implements OnInit {
     ];
 
     this.itemsBreadrumb = [
-      {label:'Home',  url: '/#/'},
-      {label:'Campaigns', url: '/#/campaign'},
+      {label:'Home',  url: '/admin/#/'},
+      {label:'Campaigns', url: '/admin/#/campaign'},
       {label:'Edit Campaign'},
     ];
   }
@@ -131,7 +131,7 @@ export class EditCampaignComponent implements OnInit {
 
     this.campaignService.update(this.campaignId, data).subscribe(res => {  
       if(res) {
-        window.location.replace(`/#/campaign/${this.campaignId}`)
+        window.location.replace(`/admin/#/campaign/${this.campaignId}`)
       }
     }, err => {
       console.log(err);

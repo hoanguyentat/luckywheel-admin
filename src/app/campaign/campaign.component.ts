@@ -60,7 +60,7 @@ export class CampaignComponent implements OnInit {
 
     this.itemsBreadrumb = [
       {label:'Home',  url: '/'},
-      {label:'Campaign', url: '/#/campaign'}
+      {label:'Campaign', url: '/admin/#/campaign'}
     ];
 
     this.campaignForm = this.fb.group({
@@ -154,7 +154,7 @@ export class CampaignComponent implements OnInit {
     .subscribe(res => {
       if (res) {
         setTimeout( () => {
-          location.replace(`/#/campaign/${res['id']}/edit`);
+          location.replace(`/admin/#/campaign/${res['id']}/edit`);
         }, 200);
       }
     }, err => {

@@ -73,7 +73,7 @@ export class SubscriberComponent implements OnInit {
 
     this.itemsBreadrumb = [
       {label:'Home',  url: '/'},
-      {label:'Subscriber', url: '/#/subscriber'}
+      {label:'Subscriber', url: '/admin/#/subscriber'}
     ]
 
     this.searchForm = this.fb.group({

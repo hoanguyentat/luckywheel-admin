@@ -12,7 +12,7 @@
                 {{campaign?.description}}
             </div>
             <p-footer>
-                <a href="/#/campaign/{{campaignId}}/edit" pButton type="button" label="Update" icon="pi pi-check" style="margin-right: .25em"></a>
+                <a href="/admin/#/campaign/{{campaignId}}/edit" pButton type="button" label="Update" icon="pi pi-check" style="margin-right: .25em"></a>
                 <button *ngIf="campaign.active" pButton type="button" (click)="stopCampaign(campaignId)" label="Stop" icon="pi pi-ban" class="ui-button-danger"></button>
                 <button *ngIf="!campaign.active" pButton type="button" (click)="activeCampaign(campaignId)" label="Active" icon="pi pi-caret-right" class="ui-button-success"></button>
             </p-footer>

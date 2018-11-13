@@ -18,13 +18,13 @@ export class HomeComponent implements OnInit {
     if(sessionStorage.getItem('jwt_token')) {
        // send an object to app component
         this.messageService.sendMessage(true);
-        window.location.replace(`/#/campaign`);
+        window.location.replace(`/admin/#/campaign`);
     } else {
       this.jwtToken = this.activedRoute.snapshot.queryParams['token'];
       if(this.jwtToken) {
         sessionStorage.setItem('jwt_token', this.jwtToken);
         this.messageService.sendMessage(true);
-        window.location.replace('/#/campaign');
+        window.location.replace('/admin/#/campaign');
       } else {
         this.messageService.sendMessage(false);
       }

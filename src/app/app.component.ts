@@ -46,17 +46,17 @@ export class AppComponent {
         {
             label: 'Campaigns',
             icon: 'pi pi-fw pi-bookmark',
-            url: '/#/campaign'
+            url: '/admin/#/campaign'
         },
         {
             label: 'Subscribers',
             icon: 'pi pi-fw pi-user-plus',
-            url: '/#/subscriber'
+            url: '/admin/#/subscriber'
         },
         // {
         //     label: 'Integrations',
         //     icon: 'pi pi-fw pi-cog',
-        //     url: '/#/integration',
+        //     url: '/admin/#/integration',
         //     items: [
         //         {
         //             label: 'Edit',
