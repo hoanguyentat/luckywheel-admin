@@ -3,5 +3,8 @@ services:
   luckywheel-admin:
     image: registry.gitlab.com/foxpify/luckywheel-admin
     stdin_open: true
+    tty: true
+    ports:
+    - 30002:8080/tcp
     labels:
       io.rancher.container.pull_image: always
