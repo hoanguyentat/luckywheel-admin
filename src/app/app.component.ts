@@ -41,7 +41,7 @@ export class AppComponent {
         {
             label: 'Home',
             icon: 'pi pi-fw pi-home',
-            url: '/'
+            url: '/admin'
         },
         {
             label: 'Campaigns',
