@@ -91,14 +91,14 @@ export class DetailCampaignComponent implements OnInit {
 
   stopCampaign(id: string) {
     this.campaignService.stop(id).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this.campaign.toggleActive();
     })
   }
 
   activeCampaign(id: string) {
     this.campaignService.active(id).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this.campaign.toggleActive();
     })
   }

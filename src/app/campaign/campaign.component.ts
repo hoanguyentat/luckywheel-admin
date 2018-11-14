@@ -115,7 +115,7 @@ export class CampaignComponent implements OnInit {
             this.campaignService.onCampaignDeleted.next(id);
           // }
         }, err => {
-          console.log("Delete error");
+          // console.log("Delete error");
         })
       }
     })
@@ -149,7 +149,7 @@ export class CampaignComponent implements OnInit {
         value[key] = null;
       }
     }
-    console.log(value)
+    // console.log(value)
     this.campaignService.create(JSON.stringify(value))
     .subscribe(res => {
       if (res) {
@@ -158,7 +158,7 @@ export class CampaignComponent implements OnInit {
         }, 200);
       }
     }, err => {
-      console.log(err);
+      // console.log(err);
     })
   }
 

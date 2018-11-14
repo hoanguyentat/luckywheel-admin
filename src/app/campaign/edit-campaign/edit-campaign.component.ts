@@ -127,14 +127,14 @@ export class EditCampaignComponent implements OnInit {
       "startedAt": this.campaignForm.value['startedAt'],
       "completedAt": this.campaignForm.value['completedAt'],
     }
-    console.log(data);
+    // console.log(data);
 
     this.campaignService.update(this.campaignId, data).subscribe(res => {  
       if(res) {
         window.location.replace(`/admin/#/campaign/${this.campaignId}`)
       }
     }, err => {
-      console.log(err);
+      // console.log(err);
     })
   }
 
