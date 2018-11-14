@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // domain: "https://dev.foxpify.com:50001/luckywheel/admin"
-  domain: 'https://lucky-wheel.foxpify.com/api'
+  domain: 'https://lucky-wheel.foxpify.com/api/admin'
 };
 
 /*
