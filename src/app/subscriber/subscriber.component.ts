@@ -72,7 +72,7 @@ export class SubscriberComponent implements OnInit {
 
 
     this.itemsBreadrumb = [
-      {label:'Home',  url: '/'},
+      {label:'Home',  url: '/admin'},
       {label:'Subscriber', url: '/admin/#/subscriber'}
     ]
 
