@@ -89,7 +89,7 @@ export class EditCampaignComponent implements OnInit {
     if (this.newSlice)
         slices.push(this.slice);
     else
-        slices[this.slices.indexOf(this.selectedSlice)] = this.slice;
+        slices[this.slices.indexOf(this.selectedSlice)] = new SliceModel(this.slice);
 
     this.slices = slices;
     this.slice = null;
@@ -106,7 +106,7 @@ export class EditCampaignComponent implements OnInit {
   onRowSelect(event) {
     // console.log(event.data)
     this.newSlice = false;
-    this.slice = this.cloneSlice(event.data);
+    this.slice = new SliceModel(this.cloneSlice(event.data));
     this.displayDialog = true;
   }
 
