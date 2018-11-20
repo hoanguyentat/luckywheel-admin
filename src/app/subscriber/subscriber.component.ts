@@ -78,7 +78,7 @@ export class SubscriberComponent implements OnInit {
 
     this.searchForm = this.fb.group({
       'email': new FormControl('', Validators.email),
-      'name': new FormControl(''),
+      'fullName': new FormControl(''),
       'campaignId': new FormControl('')
     });
 

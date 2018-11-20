@@ -48,7 +48,6 @@ export class EditCampaignComponent implements OnInit {
 
     this.campaignService.getDetail(this.campaignId).subscribe(result => {
       this.campaignName = result['name'];
-      // console.log(result)
       this.campaignForm.setValue({
         "name": result['name'],
         "description": result['description'],
@@ -114,8 +113,14 @@ export class EditCampaignComponent implements OnInit {
   cloneSlice(slice: SliceModel): SliceModel {
     let cslice= new SliceModel({});
     for (let prop in slice) {
-        cslice[prop] = slice[prop];
+        
+        if (slice[prop] !== "") {
+          cslice[prop] = slice[prop];
+        } else {
+          cslice[prop] = null;
+        }
     }
+    // console.log(cslice);
     return cslice;
   }
 
